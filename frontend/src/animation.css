@@ -1,0 +1,28 @@
+   .nav-logo-enter {
+       opacity: 0;
+   }
+
+
+   .nav-logo-enter-active {
+       opacity: 1;
+       transition: opacity 2000ms;
+
+   }
+
+   .nav-logo-enter-done {
+       opacity: 1;
+   }
+
+   .nav-logo-exit {
+       opacity: 1;
+   }
+
+   .nav-logo-exit-active {
+       opacity: 0;
+       transition: opacity 2000ms;
+
+   }
+
+   .nav-logo-exit-done {
+       opacity: 0;
+   }

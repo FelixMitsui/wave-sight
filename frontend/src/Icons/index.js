@@ -1,0 +1,14 @@
+/** @format */
+
+export { default as ArrowLeftIcon } from './ArrowLeftIcon'
+export { default as ArrowRightIcon } from './ArrowRightIcon'
+export { default as CartIcon } from './CartIcon'
+export { default as CrossIcon } from './CrossIcon'
+export { default as FoldIcon } from './FoldIcon'
+export { default as LoginIcon } from './LoginIcon'
+export { default as LogoutIcon } from './LogoutIcon'
+export { default as ManageIcon } from './ManageIcon'
+export { default as PersonIcon } from './PersonIcon'
+export { default as ProfileIcon } from './ProfileIcon'
+export { default as RegisterIcon } from './RegisterIcon'
+export { default as UploadIcon } from './UploadIcon'
