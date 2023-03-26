@@ -7,9 +7,6 @@ console.log("mongoDB:" + mongoDB)
 mongoose.connect(mongoDB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  findOneAndUpdate: true,
-  createIndex: true
-
 }
 )
 mongoose.Promise = global.Promise
