@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose')
-const mongoDB = process.env.MONGODB_URI;
+const mongoDB = process.env.MONGODB_URI || process.env.ATLAS_URI;
 mongoose.connect(mongoDB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

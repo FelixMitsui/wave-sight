@@ -5,7 +5,7 @@ import qs from 'qs'
 const CancelToken = axios.CancelToken
 const source = CancelToken.source()
 const instance = axios.create({
-  baseURL: 'http://localhost:5000/',
+  baseURL: process.env.NODE_ENV === 'production' ? 'https://fox-clothing.herokuapp.com/' : 'http://localhost:3000/'
 })
 //Backend router 
 export const createProduct = (productValue) => instance.post('/createProduct', productValue, { headers: { 'Content-Type': 'multipart/form-data' } })
