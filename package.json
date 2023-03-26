@@ -1,0 +1,6 @@
+{
+    "name": "clothing",
+    "scripts": {
+        "start": "cd frontend && npm start"
+    }
+}
