@@ -1,1 +1,1 @@
-web: cd backend && node server && cd ../frontend && npm run open
+web: cd backend && nodemon server && cd ../frontend && npm run start
