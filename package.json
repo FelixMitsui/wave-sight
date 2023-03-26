@@ -8,7 +8,6 @@
   },
   "homepage": ".",
   "scripts": {
-    "build": "webpack",
     "start": "webpack serve",
     "pretty": "prettier src/components src/containers src/pages ",
     "svgr": "svgr -d src/Icons/ src/svg",
