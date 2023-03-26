@@ -1,3 +1,3 @@
-export const BACKEND_URL = 'http://localhost:5000/'
-export const BACKEND_IMAGE_URL = 'http://localhost:5000/imgs'
-export const FRONTEND_URL = 'http://localhost:8080'
+export const BACKEND_URL = process.env.NODE_ENV === 'production' ? 'https://fox-clothing.herokuapp.com/' : 'http://localhost:3000/'
+export const BACKEND_IMAGE_URL = process.env.NODE_ENV === 'production' ? 'https://fox-clothing.herokuapp.com/imgs' : 'http://localhost:3000/imgs'
+export const FRONTEND_URL = process.env.NODE_ENV === 'production' ? 'https://fox-clothing.herokuapp.com/' : 'http://localhost:8080'

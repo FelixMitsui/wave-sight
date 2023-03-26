@@ -7,6 +7,7 @@ const source = CancelToken.source()
 const instance = axios.create({
   baseURL: process.env.NODE_ENV === 'production' ? 'https://fox-clothing.herokuapp.com/' : 'http://localhost:3000/'
 })
+console.log(instance)
 //Backend router 
 export const createProduct = (productValue) => instance.post('/createProduct', productValue, { headers: { 'Content-Type': 'multipart/form-data' } })
 export const getAllProducts = () => instance.post('/getAllProducts')
