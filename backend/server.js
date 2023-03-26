@@ -3,11 +3,13 @@ const bodyParser = require("body-parser");
 
 const mongoose = require('mongoose')
 const mongoDB = process.env.MONGODB_URI;
+console.log("mongoDB:" + mongoDB)
 mongoose.connect(mongoDB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
+  findOneAndUpdate: true,
+  createIndex: true
+
 }
 )
 mongoose.Promise = global.Promise
