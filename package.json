@@ -1,7 +1,7 @@
 {
     "name": "clothing",
     "scripts": {
-        "start": "cd frontend && npm start",
-        "heroku-postbuild": "cd frontend && npm install && npm run build && cd ../backend && npm install"
+        "start": "cd frontend && npm run start",
+        "heroku-postbuild": "cd frontend && npm install && npm run start && cd ../backend && npm install"
     }
 }
