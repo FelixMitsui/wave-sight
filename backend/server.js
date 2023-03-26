@@ -2,10 +2,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose')
 const mongoDB = process.env.MONGODB_URI;
-
 mongoose.connect(mongoDB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false
 }).then(() => {
   console.log("MongoDB connection successful.");
 }).catch((err) => {
