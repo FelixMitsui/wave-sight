@@ -1,14 +1,17 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-
 const mongoose = require('mongoose')
 const mongoDB = process.env.MONGODB_URI;
-console.log("mongoDB:" + mongoDB)
+
 mongoose.connect(mongoDB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-}
-)
+}).then(() => {
+  console.log("MongoDB connection successful.");
+}).catch((err) => {
+  console.error("MongoDB connection error:", err);
+});
+
 mongoose.Promise = global.Promise
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'))
