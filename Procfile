@@ -1,1 +1,1 @@
-web: cd backend && nodemon server && cd ../frontend && npm run start
+web: npm start --prefix <backend>
