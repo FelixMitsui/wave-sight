@@ -6,6 +6,7 @@
     "node": "14.x",
     "npm": "6.x"
   },
+  "homepage": ".",
   "scripts": {
     "build": "webpack",
     "start": "webpack serve",
