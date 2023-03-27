@@ -4,7 +4,7 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-
+const { DefinePlugin } = require('webpack');
 const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
@@ -58,10 +58,19 @@ module.exports = {
           'sass-loader'
         ],
       },
-      // {
-      //   test: /\.(gif|jpg|png)$/,
-      //   type: 'asset/resource',
-      // },
+      {
+        test: /\.(png|jpg|jpeg|gif)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192, // 文件大小小於 8KB 的時候轉換成 data URL
+              fallback: require.resolve('file-loader'), // 文件大小大於 8KB 的時候使用 file-loader 轉換成實際文件路徑
+              outputPath: './dist/assets/images'
+            },
+          },
+        ],
+      },
       {
         test: /\.tsx?$/,
         use: ['babel-loader', 'ts-loader'],
@@ -105,7 +114,14 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'index_bundle.css',
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new DefinePlugin({
+      'process.env': {
+        ASSETS_PATH: JSON.stringify(
+          path.join(__dirname, 'dist/assets/images')
+        ),
+      },
+    }),
   ],
   mode: 'development',
 
