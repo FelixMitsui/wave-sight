@@ -1,5 +1,5 @@
 {
-  "name": "clothing_frontend",
+  "name": "react_bs_store",
   "version": "1.0.0",
   "main": "index.js",
   "engines": {
@@ -8,15 +8,15 @@
   },
   "homepage": ".",
   "scripts": {
-    "start": "node dist/index_bundle.js",
+    "start": "serve -s dist -l 8080",
     "pretty": "prettier src/components src/containers src/pages ",
     "svgr": "svgr -d src/Icons/ src/svg",
-    "dev": "webpack ",
+    "dev": "webpack-dev-server",
+    "build": "webpack",
     "ts": "tsc",
     "flow": "flow",
-    "heroku-postbuild": "npx webpack --mode production"
+    "heroku-postbuild": "webpack --mode production"
   },
-  "cache": "node_modules",
   "author": "",
   "license": "ISC",
   "babel": {
@@ -27,11 +27,18 @@
     ]
   },
   "dependencies": {
+    "axios": "^0.24.0",
+    "bootstrap": "^5.1.3",
+    "bootstrap-icons": "^1.7.2",
     "formidable": "^2.0.1",
     "formik": "^2.2.9",
+    "jquery": "^3.6.4",
     "lodash": "^4.17.21",
     "nginx": "^1.0.8",
+    "popper.js": "^1.16.1",
+    "qs": "^6.10.5",
     "react": "^17.0.2",
+    "react-bootstrap": "^2.7.0",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.1",
@@ -44,7 +51,6 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@ant-design/icons": "^4.7.0",
     "@babel/cli": "^7.20.7",
     "@babel/core": "^7.20.12",
     "@babel/plugin-transform-runtime": "^7.18.2",
@@ -60,11 +66,8 @@
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",
     "autoprefixer": "^10.4.0",
-    "axios": "^0.24.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.3",
-    "bootstrap": "^5.1.3",
-    "bootstrap-icons": "^1.7.2",
     "css-loader": "^6.5.1",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
@@ -82,19 +85,17 @@
     "js-image-compressor": "^2.0.0",
     "lint-staged": "^12.3.2",
     "mini-css-extract-plugin": "^2.4.5",
+    "node-sass": "^7.0.3",
     "postcss": "^8.4.4",
     "postcss-loader": "^6.2.1",
     "prettier": "^2.5.1",
     "prop-types": "^15.8.1",
-    "qs": "^6.10.5",
-    "react-bootstrap": "^2.7.0",
     "sass": "^1.44.0",
     "sass-loader": "^12.4.0",
     "style-loader": "^3.3.1",
     "svg-sprite-loader": "^6.0.11",
     "svgo-loader": "^3.0.1",
     "terser-webpack-plugin": "^5.3.4",
-    "typescript": "^4.7.4",
     "webpack": "^5.76.3",
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.10.0"

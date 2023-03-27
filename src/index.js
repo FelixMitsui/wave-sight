@@ -6,7 +6,8 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from './store'
 import RoutesElement from './Routes'
-import './index.scss'
+import './all.scss'
+
 import FootArea from '../src/containers/FootArea'
 const App = () => {
 

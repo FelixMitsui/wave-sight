@@ -43,18 +43,25 @@ module.exports = {
         ],
       },
       {
-        test: /\.css$|\.scss$/,
+        test: /\.scss$|\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          { loader: 'css-loader', options: { importLoaders: 1 } },
-          { loader: 'postcss-loader' },
-          { loader: 'sass-loader' },
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [require('autoprefixer')]
+              }
+            }
+          },
+          'sass-loader'
         ],
       },
-      {
-        test: /\.(gif|jpg|png)$/,
-        type: 'asset/resource',
-      },
+      // {
+      //   test: /\.(gif|jpg|png)$/,
+      //   type: 'asset/resource',
+      // },
       {
         test: /\.tsx?$/,
         use: ['babel-loader', 'ts-loader'],
@@ -96,7 +103,7 @@ module.exports = {
     }),
 
     new MiniCssExtractPlugin({
-      filename: 'index.css',
+      filename: 'index_bundle.css',
     }),
     new webpack.HotModuleReplacementPlugin()
   ],

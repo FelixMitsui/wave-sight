@@ -1,4 +1,5 @@
 @use "sass:map";
+@import "~bootstrap/scss/bootstrap";
 @import "custom.scss";
 
 @for $i from 1 through 6 {
@@ -80,9 +81,6 @@
   background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
 }
 
-.bg-gray300 {
-  background: $gray-300;
-}
 
 @media (max-width: 990px) {
   .pt-btn {
@@ -108,7 +106,3 @@
   transition: transform 1s ease-in;
   transform: translateX(0%) !important;
 }
-
-// body {
-//   height: 100%;
-// }

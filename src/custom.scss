@@ -1,8 +1,5 @@
 @import "../node_modules/bootstrap/scss/functions";
 
-
-
-
 @import "../node_modules/bootstrap/scss/variables";
 $custom-positions: (
   -1:-1%,
@@ -91,7 +88,8 @@ $utilities-text-colors: map-merge($utilities-text-colors,
     ($colors ));
 $utilities-bg-colors: map-merge($utilities-bg-colors,
     ($colors ));
-
+$utilities-border-colors: map-merge($utilities-border-colors,
+    ($colors ));
 // $utilities: (
 //   "margin-top": (property: height,
 //     values: (25: 25%,
