@@ -2,7 +2,6 @@
 
 import React from 'react'
 import Carousel from 'react-bootstrap/Carousel'
-import '../../assets/carousel'
 import '../../../src/index'
 const path = require('path')
 class SingleCarousel extends React.Component {
