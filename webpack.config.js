@@ -13,7 +13,7 @@ module.exports = {
 
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'index_bundle.[hash].js',
+    filename: 'index_bundle.js',
     publicPath: '/',
     clean: true
   },
@@ -87,16 +87,16 @@ module.exports = {
     },
     hot: true,
     historyApiFallback: true,
-    port: 8080,
+    port: process.env.NODE_ENV === "production" ? 'https://clothing-frontend.herokuapp.com/' : 8080,
     compress: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html'
+      template: './src/index.html',
     }),
 
     new MiniCssExtractPlugin({
-      filename: 'index.[hash].css',
+      filename: 'index.css',
     }),
     new webpack.HotModuleReplacementPlugin()
   ],

@@ -1,5 +1,5 @@
 {
-  "name": "react_bs_store",
+  "name": "clothing_frontend",
   "version": "1.0.0",
   "main": "index.js",
   "engines": {
@@ -8,13 +8,15 @@
   },
   "homepage": ".",
   "scripts": {
-    "start": "webpack serve",
+    "start": "node dist/index_bundle.js",
     "pretty": "prettier src/components src/containers src/pages ",
     "svgr": "svgr -d src/Icons/ src/svg",
-    "open": "webpack-dev-server",
+    "dev": "webpack ",
     "ts": "tsc",
-    "flow": "flow"
+    "flow": "flow",
+    "heroku-postbuild": "npx webpack --mode production"
   },
+  "cache": "node_modules",
   "author": "",
   "license": "ISC",
   "babel": {
