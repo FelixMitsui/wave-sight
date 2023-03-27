@@ -2,8 +2,9 @@
 
 import React from 'react'
 import Carousel from 'react-bootstrap/Carousel'
+import '../../assets/carousel'
 import '../../../src/index'
-
+const path = require('path')
 class SingleCarousel extends React.Component {
   constructor() {
     super()
@@ -22,7 +23,7 @@ class SingleCarousel extends React.Component {
         <Carousel.Item>
           <img
             className="d-block w-100 "
-            src={require('../../assets/carousel/i-banner-fz-20211116-1.jpg')}
+            src='i-banner-fz-20211116-1.jpg'
             alt="First slide"
           />
         </Carousel.Item>
@@ -30,7 +31,7 @@ class SingleCarousel extends React.Component {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src={require('../../assets/carousel/i-banner-fz-20211116-3.jpg')}
+            src='i-banner-fz-20211116-3.jpg'
             alt="Second slide"
           />
         </Carousel.Item>
@@ -38,7 +39,7 @@ class SingleCarousel extends React.Component {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src={require('../../assets/carousel/i-bn20180717-2-07.jpg')}
+            src='i-bn20180717-2-07.jpg'
             alt="Third slide"
           />
         </Carousel.Item>
@@ -46,7 +47,7 @@ class SingleCarousel extends React.Component {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src={require('../../assets/carousel/i-bn20180717-2-09.jpg')}
+            src='i-bn20180717-2-09.jpg'
             alt="Third slide"
           />
         </Carousel.Item>
