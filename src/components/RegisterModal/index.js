@@ -4,56 +4,69 @@ import { Button, Form, FormGroup, FormControl, FormLabel, } from 'react-bootstra
 import Modal from 'react-bootstrap/Modal'
 import useInputValidate from '../../hooks/useInputValidate'
 import { NAME_REGEX, EMAIL_REGEX, PASSWORD_REGEX } from '../../util/constants/formValid'
-import '../../../src/index'
 
 const isNameFormat = (value) => NAME_REGEX.test(value);
 const isPasswordFormat = (value) => PASSWORD_REGEX.test(value);
 const isEmailFormat = (value) => EMAIL_REGEX.test(value);
 
-const RegisterModal = (props) => {
 
+const RegisterModal = ({ handleRegister, handleClose, show }) => {
   const checkPasswordRef = useRef()
+
+  const isPasswordMatchFormat = (value) => value === checkPasswordRef.current.value;
 
   const {
     value: name,
     isValid: nameIsValid,
+    message: messageName,
     isConfirm: nameIsConfirm,
     onChangeValue: onChangeName,
     onBlurValue: onBlurName,
-  } = useInputValidate(isNameFormat);
+  } = useInputValidate(isNameFormat, 'name');
 
   const {
     value: password,
     isValid: passwordIsValid,
+    message: messagePassword,
     isConfirm: passwordIsConfirm,
     onChangeValue: onChangePassword,
     onBlurValue: onBlurPassword,
-  } = useInputValidate(isPasswordFormat);
+  } = useInputValidate(isPasswordFormat, 'password');
+
+  const {
+    value: confirmPassword,
+    message: messageConfirmPassword,
+    isValid: confirmPasswordIsValid,
+    isConfirm: confirmPasswordIsConfirm,
+    onChangeValue: onChangeConfirmPassword,
+    onBlurValue: onBlurConfirmPassword,
+  } = useInputValidate(isPasswordMatchFormat, 'confirm password');
 
   const {
     value: email,
     isValid: emailIsValid,
+    message: messageEmail,
     isConfirm: emailIsConfirm,
     onChangeValue: onChangeEmail,
     onBlurValue: onBlurEmail,
-  } = useInputValidate(isEmailFormat);
+  } = useInputValidate(isEmailFormat, 'email');
 
   const onFormSubmit = (e) => {
     e.preventDefault()
-    props.handleRegister([name, email, password])
+    handleRegister({ name, email, password })
   };
 
   return (
     <Modal
-      show={props.show}
-      onHide={props.handleClose}
+      show={show}
+      onHide={handleClose}
       size="md"
       aria-labelledby="contained-modal-title-vcenter"
       contentClassName="gray-lv3"
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title className=" fw-bold" id="contained-modal-title-vcenter">
+        <Modal.Title className="fs-2 font-title" id="contained-modal-title-vcenter">
           Register
         </Modal.Title>
       </Modal.Header>
@@ -61,7 +74,7 @@ const RegisterModal = (props) => {
         <Modal.Body>
 
           <FormGroup className="mb-3" controlId="formBasicEmail">
-            <FormLabel>User Name</FormLabel>
+            <FormLabel className='fs-5 font-content'>User Name</FormLabel>
             <FormControl
               type="text"
               placeholder="Enter Username"
@@ -70,41 +83,44 @@ const RegisterModal = (props) => {
               onBlur={onBlurName}
             />
             <Form.Text className="text-danger" hidden={nameIsValid}>
-              malformed username,please confirm your Format!
+              {messageName}
             </Form.Text>
           </FormGroup>
 
           <FormGroup className="mb-3" controlId="formBasicPassword">
-            <FormLabel>Password</FormLabel>
+            <FormLabel className='fs-5 font-content'>Password</FormLabel>
             <FormControl
               type="password"
               placeholder="Enter Password"
+              ref={checkPasswordRef}
               value={password}
               onChange={onChangePassword}
               onBlur={onBlurPassword}
             />
             <Form.Text className="text-danger" id="passwordFormat" hidden={passwordIsValid}>
-              malformed password,please confirm your Format!
+              {messagePassword}
             </Form.Text>
           </FormGroup>
 
           <FormGroup className="mb-3" controlId="formBasicPassword">
-            <FormLabel>Confirm Password</FormLabel>
+            <FormLabel className='fs-5 font-content'>Confirm Password</FormLabel>
             <FormControl
               type="password"
-              ref={checkPasswordRef}
+              value={confirmPassword}
               placeholder="Enter Password Again"
+              onChange={onChangeConfirmPassword}
+              onBlur={onBlurConfirmPassword}
             />
             <Form.Text
               className="text-danger"
-              hidden={checkPasswordRef.current?.value === password}
+              hidden={confirmPasswordIsValid}
             >
-              the passwords are inconsistent!
+              {messageConfirmPassword}
             </Form.Text>
           </FormGroup>
 
           <FormGroup className="mb-3" controlId="formBasicEmail">
-            <FormLabel>Email address</FormLabel>
+            <FormLabel className='fs-5 font-content'>Email address</FormLabel>
             <FormControl
               type="email"
               placeholder="Enter Email"
@@ -113,18 +129,15 @@ const RegisterModal = (props) => {
               onBlur={onBlurEmail}
             />
             <Form.Text className=" text-danger" hidden={emailIsValid}>
-              malformed E-mail,please confirm your Format!
+              {messageEmail}
             </Form.Text>
           </FormGroup>
-
-
         </Modal.Body>
-
         <Modal.Footer>
           <Button
             type="submit"
             variant="outline-light light"
-            disabled={!nameIsConfirm || !emailIsConfirm || !passwordIsConfirm || !checkPasswordRef.current?.value}
+            disabled={!nameIsConfirm || !emailIsConfirm || !passwordIsConfirm || !confirmPasswordIsConfirm}
           >
             Register
           </Button>

@@ -8,7 +8,6 @@ const { DefinePlugin } = require('webpack');
 const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
-  // devtool: 'cheap-eval-source-map',
   entry: ['./src/index.js'],
 
   output: {
@@ -17,6 +16,7 @@ module.exports = {
     publicPath: '/',
     clean: true
   },
+
   optimization: {
     minimizer: [
       new TerserPlugin({
@@ -59,14 +59,14 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpg|jpeg|gif)$/i,
+        test: /\.(png|jpg|jpeg|gif)$/,
         use: [
           {
-            loader: 'url-loader',
+            loader: 'file-loader',
             options: {
-              limit: 8192, // 文件大小小於 8KB 的時候轉換成 data URL
-              fallback: require.resolve('file-loader'), // 文件大小大於 8KB 的時候使用 file-loader 轉換成實際文件路徑
-              outputPath: './dist/assets/images'
+              name: 'assets/images/[name].[ext]',
+              limit: 8192,
+              fallback: require.resolve('url-loader'),
             },
           },
         ],

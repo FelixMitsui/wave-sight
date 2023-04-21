@@ -54,6 +54,15 @@
             // "...commonConfig"
         }
     ],
+    "indent": [
+        "error",
+        2,
+        {
+            "ignoredNodes": [
+                "TemplateLiteral"
+            ]
+        }
+    ],
     "rules": {
         "prettier/prettier": "error",
         "space-before-function-paren": 0,

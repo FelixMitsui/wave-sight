@@ -1,0 +1,15 @@
+@keyframes slide-in {
+    from {
+        transform: translateX(-150%);
+    }
+
+    to {
+        transform: translateX(0%);
+    }
+}
+
+.nav-animation {
+    animation-name: slide-in;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+}

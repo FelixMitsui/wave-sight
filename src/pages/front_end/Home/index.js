@@ -2,28 +2,29 @@
 
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { productActions } from '../../../redux/productModule'
+import { productTypes } from '../../../redux/productModule'
 import { Row, Container } from 'react-bootstrap'
 import SingleCarousel from '../../../components/SingleCarousel'
 import ProductCarousel from '../../../containers/ProductCarousel'
 import Loading from '../../../components/Loading'
+import { propTypes } from 'react-bootstrap/esm/Image'
 
 const Home = () => {
+
   const dispatch = useDispatch()
-  const products = useSelector((state) => state.product.products)
+  const products = useSelector((state) => state.product)
   const [isLoading, setIsloading] = useState(false)
 
   useEffect(() => {
-    if (products == '') {
-      setIsloading(true)
-      dispatch(productActions.getFilteredProducts())
-      setIsloading(false)
-    }
+    if (Object.keys(products)
+      .filter((key) => key !== 'search')
+      .every((key) => products[key].length > 0)) return;
+    dispatch({ type: productTypes.GET_FILTERED_PRODUCTS_REQUEST })
   }, [])
 
   return (
     <>
-      {isLoading ? <Loading /> : ""}
+      {isLoading ? <Loading /> : null}
       < SingleCarousel />
       <Container >
         <h1 style={{ fontFamily: "fantasy" }}

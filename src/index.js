@@ -6,11 +6,10 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from './store'
 import RoutesElement from './Routes'
-import './all.scss'
+import FootArea from './containers/FootArea'
+import './styles/index.scss';
 
-import FootArea from '../src/containers/FootArea'
 const App = () => {
-
   return (
     <BrowserRouter>
       <RoutesElement />
@@ -18,7 +17,6 @@ const App = () => {
     </BrowserRouter>
   )
 }
-
 ReactDOM.render(
   <Provider store={store}>
     <App />

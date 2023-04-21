@@ -31,7 +31,7 @@ const UploadButton = ({ onChange = () => { }, ...upload }) => {
                     width="30"
                     height="30"
                 />
-                <h5>Upload</h5>
+                <h6 className='font-content'>Upload</h6>
             </Button>
         </>
     );

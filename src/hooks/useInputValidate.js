@@ -3,38 +3,47 @@ import { useReducer } from 'react';
 
 const initialInput = {
     value: '',
-    isValid: true,
-    isTouched: false
+    isValid: false,
+    isTouched: false,
+    message: ''
 };
 
 const inputReducer = (state, action) => {
-    switch (action.type) {
+    switch (action.eventType) {
         case "INPUT":
-            return { value: action.value, isValid: state.isValid };
+            return { ...state, value: action.value, isValid: action.isValid, isTouched: true };
         case "BLUR":
-            return { value: state.value, isValid: action.isValid, isTouched: true };
+            let message;
+            if (state.value === '') {
+                message = `The ${action.type} cannot be empty.`
+            } else {
+                if (action.type === 'confirm password') {
+                    message = `Password and ${action.type} do not match.`
+                } else {
+                    message = `The ${action.type} format is incorrect.`
+                }
+            }
+            return { ...state, isValid: action.isValid, isTouched: true, message };
         default:
             return state;
     }
 }
 
-const useInputValidate = (validateValue) => {
+const useInputValidate = (validateValue, type) => {
     const [input, dispatch] = useReducer(inputReducer, initialInput);
 
     const onChangeValue = (e) => {
-        dispatch({ type: "INPUT", value: e.target.value });
+        dispatch({ eventType: "INPUT", value: e.target.value, isValid: validateValue(e.target.value) });
     };
-
     const onBlurValue = () => {
-
-        dispatch({ type: "BLUR", isValid: validateValue(input.value) });
-
+        dispatch({ eventType: "BLUR", isValid: validateValue(input.value), type });
     };
 
     return {
         value: input.value,
+        message: input.message,
         isValid: input.isValid,
-        isConfirm: input.isTouched === input.isValid,
+        isConfirm: input.isTouched && input.isValid,
         onChangeValue,
         onBlurValue,
     };

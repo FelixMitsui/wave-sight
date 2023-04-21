@@ -5,14 +5,11 @@ import useSyncCallback from '../../hooks/useSyncCallback'
 import { BACKEND_IMAGE_URL } from '../../util/constants/url'
 
 const CartItem = ({
-  item,
-  number,
-  userId,
+  item, number, userId,
   handleCalculate,
   updateItemQuantity,
   deleteCartItem,
 }) => {
-
   const {
     product_mark,
     product_image,
@@ -24,7 +21,7 @@ const CartItem = ({
     product_price,
   } = item
 
-  const [disabled, setDisabled] = useState(false)
+  const [disabled, setDisabled] = useState(true)
   const [quantity, setQuantity] = useState(Number(product_quantity))
 
   useEffect(() => {
@@ -48,20 +45,24 @@ const CartItem = ({
       handleCalculate(product_price * product_discount)
     }
     syncUpdateQuantity()
+
   }
 
   const handleDecrement = () => {
-    if (quantity === 1) {
-      setDisabled(true)
-    } else {
-      setQuantity((prev) => prev - 1)
-      handleCalculate(-product_price * product_discount)
+    if (quantity <= 1) {
+      setDisabled(true);
+      return
     }
+    setQuantity((prev) => prev - 1)
+    handleCalculate(-product_price * product_discount)
     syncUpdateQuantity()
+    if (quantity - 1 === 1) {
+      setDisabled(false);
+    }
   }
-
+  
   return (
-    <tr className="text-center ">
+    <tr className="text-center font-content">
       <th>{number + 1}</th>
       <th>
         <Image
@@ -71,7 +72,7 @@ const CartItem = ({
           width={100}
           height={100}
           className="mx-auto d-block "
-          src={`${BACKEND_IMAGE_URL}/${product_image.originalname}`}
+          src={product_image}
         />
       </th>
       <th>{product_name}</th>
@@ -95,10 +96,10 @@ const CartItem = ({
           />
         </div>
       </th>
-      <th>NT{product_price * quantity * product_discount}$</th>
+      <th>NT{Math.floor(product_price * quantity * product_discount)}$</th>
       <th className='d-inline'>
         <Button
-          className='mt-2 btn-gray'
+          className='mt-2 btn-gray font-content'
           onClick={() =>
             deleteCartItem({
               user_id: userId,

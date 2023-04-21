@@ -5,40 +5,29 @@ import { useDispatch } from "react-redux";
 import { Table } from "react-bootstrap";
 import Create from "../Create";
 import ProductTable from "../../../components/manage/ProductTable";
-import { productActions } from "../../../redux/productModule";
+import { manageTypes } from "../../../redux/manageModule";
 
 const EditProduct = () => {
-
     const dispatch = useDispatch()
-    const products = useSelector((state) => state.product.products)
-
+    const products = useSelector((state) => state.manage.products)
     const [showEdit, setShowEdit] = useState(false)
     const [editValue, setEditValue] = useState(null)
 
     useEffect(() => {
-        if (products.length != 0) {
-            return
-        } else {
-            dispatch(productActions.getAllProducts())
-        }
+        dispatch({ type: manageTypes.GET_ALL_PRODUCTS_REQUEST })
     }, [])
 
     const handleShowEdit = (bool, value) => {
         setShowEdit(bool)
         setEditValue(value)
-
     }
-
-
     const tableItems = products?.map((item, index) =>
         <ProductTable
             key={item._id}
             num={index}
             item={item}
             handleShowEdit={() => handleShowEdit(true, item)}
-        />
-    )
-
+        />)
     return (
         <div className=" h-100">
             <h1
@@ -54,7 +43,7 @@ const EditProduct = () => {
             ) : (
                 <Table striped bordered hover>
                     <thead>
-                        <tr className="text-center">
+                        <tr className="text-center font-content">
                             <th>No.</th>
                             <th>Product Name</th>
                             <th>Image</th>

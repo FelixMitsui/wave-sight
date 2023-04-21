@@ -1,45 +1,57 @@
 /** @format */
-//@flow
+
 import * as React from 'react';
 import type { Node } from "react"
 import { useDispatch } from 'react-redux'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { Formik, Field, ErrorMessage, FieldArray } from 'formik'
 import * as Yup from 'yup';
-import { productActions } from '../../../redux/productModule'
 import ImgList from '../../../components/ImgList'
 import { FoldIcon } from '../../../Icons'
 import { PRODUCT_CATEGORIES, PRODUCT_COLORS, PRODUCT_PARTS, PRODUCT_SIZES } from '../../../util/constants/productForm'
 import UploadButton from '../../../components/UploadButton'
 import { getImageSrc } from '../../../util/getImageSrc'
 import { setTextColor } from '../../../util/setTextColor';
+import { manageTypes } from '../../../redux/manageModule';
 
 const valuesSchema = Yup.object().shape({
-  nameText: Yup.string().required('required!').min(8, 'Words cannot be less than 8!').max(20, 'Words should be less than 30!'),
+  nameText: Yup.string().required('required!').min(8, 'Words cannot be less than 8!').max(30, 'Words should be less than 30!'),
   colorsCheckBox: Yup.array().of(Yup.string()).min(1, 'required!'),
   sizesCheckBox: Yup.array().min(1, 'required!'),
-  categoriesCheckBox: Yup.array().min(1, 'required!'),
+  categoryRadio: Yup.string().required('required!'),
   partRadio: Yup.string().required('required!'),
   priceText: Yup.number().required('required!'),
-  imagesFile: Yup.array().of(Yup.object()).min(1, 'picture is required!').required('required!'),
-  contentTextarea: Yup.string().required('required!').min(50, 'Words cannot be less than 50!').max(500, 'Words should be less than 500!'),
-  detailImagesFile: Yup.array().of(Yup.object()).min(1, 'picture is required!').required('required!')
+  imagesFile: Yup.array()
+    .of(
+      Yup.mixed()
+        .test('fileFormat', 'Invalid file format', value => {
+          if (value instanceof FileList) {
+            for (let i = 0; i < value.length; i++) {
+              const file = value.item(i);
+              if (!file.type.includes('image/')) {
+                return false;
+              }
+            }
+            return true;
+          } else {
+            return true;
+          }
+        })
+    )
+    .min(1, 'Picture is required!')
+    .required('Required!'),
+  contentTextarea: Yup.string().required('required!').min(50, 'Words cannot be less than 50!').max(550, 'Words should be less than 550!'),
+  // detailImagesFile: Yup.array().of(Yup.object()).min(1, 'picture is required!').required('required!')
 })
 
-type Props = {
-  handleClose: Object,
-  productValue?: any,
-}
-
-const Create = ({ productValue, handleClose }: Props): React.Node => {
-
+const Create = ({ productValue, handleClose }) => {
   const dispatch = useDispatch()
-
   const {
+    _id,
     product_name,
     product_colors,
     product_sizes,
-    product_categories,
+    product_category,
     product_part,
     product_price,
     product_sale,
@@ -54,7 +66,7 @@ const Create = ({ productValue, handleClose }: Props): React.Node => {
     nameText: product_name,
     colorsCheckBox: product_colors || [],
     sizesCheckBox: product_sizes || [],
-    categoriesCheckBox: product_categories || [],
+    categoryRadio: product_category || [],
     partRadio: product_part || '',
     priceText: product_price,
     isSaleSwitch: product_sale || false,
@@ -62,26 +74,54 @@ const Create = ({ productValue, handleClose }: Props): React.Node => {
     isPopularSwitch: product_popularity || false,
     imagesFile: product_images,
     contentTextarea: product_content,
-    detailImagesFile: product_detail_images
+    detailImagesFile: product_detail_images || []
   }
-
   const upload = {
     accept: 'image/*',
     multiple: true
   }
-
-  const onFormSubmit = (initValues: any) => {
-    for (let i = 0; i < initValues.imagesFile.length; i++) {
-      delete initValues.imagesFile[i].imageUrl
+  const onFormSubmit = async (values) => {
+    const formData = new FormData();
+    if (_id) {
+      formData.append('_id', _id)
     }
-    for (let i = 0; i < initValues.detailImagesFile.length; i++) {
-      delete initValues.detailimagesFile[i].imageUrl
+    formData.append('product_name', values.nameText)
+    formData.append('product_category', values.categoryRadio)
+    values.colorsCheckBox.forEach(color => {
+      formData.append('product_colors', color);
+    });
+    values.sizesCheckBox.forEach(size => {
+      formData.append('product_sizes', size)
+    });
+    formData.append('product_part', values.partRadio)
+    formData.append('product_price', values.priceText)
+    formData.append('product_new', values.isNewSwitch)
+    formData.append('product_popularity', values.isPopularSwitch)
+    formData.append('product_sale', values.isSaleSwitch)
+    formData.append('product_content', values.contentTextarea)
+    values.imagesFile.forEach(file => {
+      if (file.imageFile) {
+        delete file.imageUrl;
+        formData.append('product_images', file.imageFile);
+      } else {
+        formData.append('product_images', file);
+      }
+    })
+    // if (values.detailImagesFile && values.detailImagesFile !== '') {
+    //   values.detailImagesFile.forEach(file => {
+    //     delete file.imageUrl
+    //     formData.append('product_detail_images', file.imageFile);
+    //   });
+    formData.append('product_detail_images', values.detailImagesFile);
+    if (_id === undefined) {
+      await dispatch({ type: manageTypes.CREATE_PRODUCT_REQUEST, payload: formData })
+    } else {
+      await dispatch({ type: manageTypes.UPDATE_PRODUCT_REQUEST, payload: formData })
     }
-    console.log(initValues)
-    dispatch(productActions.createProduct())
+    handleClose(false)
   }
-  return (
 
+  return (
     <Container className="mt-2">
       <h1
         style={{ fontFamily: "fantasy" }}
@@ -91,13 +131,12 @@ const Create = ({ productValue, handleClose }: Props): React.Node => {
       </h1>
       <Formik initialValues={initialValues}
         validationSchema={valuesSchema}
-        onSubmit={(initValues) => onFormSubmit(initValues)}
+        onSubmit={(values) => onFormSubmit(values)}
       >{({ handleSubmit, isSubmitting }) => (
         <Form onSubmit={handleSubmit}>
           <Form.Group as={Row}>
-
             <Col>
-              <Form.Label column sm md="auto" className="fw-bold me-1">
+              <Form.Label column sm md="auto" className="me-1 fs-5 font-content">
                 Product Name :
               </Form.Label>
               < Field type="text" name="nameText" placeholder="product name" />
@@ -110,7 +149,7 @@ const Create = ({ productValue, handleClose }: Props): React.Node => {
           </Form.Group>
           <hr />
           <Form.Group as={Row}>
-            <Form.Label column sm md="auto" className="fw-bold">
+            <Form.Label column sm md="auto" className="fs-5 font-content">
               Product Color :
             </Form.Label>
             <Col className="mt-2 d-flex flex-row flex-wrap">
@@ -122,7 +161,7 @@ const Create = ({ productValue, handleClose }: Props): React.Node => {
                       type="checkbox"
                       label={color}
                       checked={values.colorsCheckBox.indexOf(color) != -1}
-                      className={`m-2 px-3 border bg-${color} ${setTextColor(color) ? "text-black" : "text-white"}`}
+                      className={`m-2 font-content px-3 border bg-${color} ${setTextColor(color) ? "text-black" : "text-white"}`}
                       rows={3}
                       {...field}
                       value={color}
@@ -138,7 +177,7 @@ const Create = ({ productValue, handleClose }: Props): React.Node => {
           </Form.Group>
           <hr />
           <Form.Group as={Row}>
-            <Form.Label column sm md="auto" className="fw-bold">
+            <Form.Label column sm md="auto" className="fs-5 font-content">
               Product Size :
             </Form.Label>
             <Col className="mt-2 d-flex flex-row">
@@ -150,7 +189,7 @@ const Create = ({ productValue, handleClose }: Props): React.Node => {
                       type="checkbox"
                       label={size}
                       checked={values.sizesCheckBox.indexOf(size) != -1}
-                      className="me-2"
+                      className="me-2 font-content"
                       {...field}
                       value={size}
                     />))
@@ -164,26 +203,26 @@ const Create = ({ productValue, handleClose }: Props): React.Node => {
           </Form.Group>
           <hr />
           <Form.Group as={Row}>
-            <Form.Label column sm md="auto" className="fw-bold">
+            <Form.Label column sm md="auto" className="fs-5 font-content">
               Product Category :
             </Form.Label>
             <Col className="mt-2 d-flex flex-row">
-              <Field name="categoriesCheckBox">{
+              <Field name="categoryRadio">{
                 ({ field, form: { values } }) =>
                   PRODUCT_CATEGORIES.map((category) => (
                     <Form.Check
                       key={category}
-                      type="checkbox"
+                      type="radio"
                       label={category[0].toUpperCase() + category.slice(1)}
-                      checked={values.categoriesCheckBox.indexOf(category) != -1}
-                      className="me-2"
+                      checked={values.categoryRadio.indexOf(category) != -1}
+                      className="me-2 font-content"
                       {...field}
                       value={category}
                     />
                   ))}
               </Field>
             </Col>
-            <ErrorMessage name="categoriesCheckBox">{(error) =>
+            <ErrorMessage name="categoryRadio">{(error) =>
               <Form.Label className="fw-bold me-1 text-red  d-flex">
                 {error}
               </Form.Label>}
@@ -191,7 +230,7 @@ const Create = ({ productValue, handleClose }: Props): React.Node => {
           </Form.Group>
           <hr />
           <Form.Group as={Row}>
-            <Form.Label column sm md="auto" className="fw-bold">
+            <Form.Label column sm md="auto" className="fs-5 font-content">
               Product Part :
             </Form.Label>
             <Col className="mt-2 d-flex flex-row">
@@ -203,7 +242,7 @@ const Create = ({ productValue, handleClose }: Props): React.Node => {
                       type="radio"
                       label={part[0].toUpperCase() + part.slice(1)}
                       checked={values.partRadio.indexOf(part) != -1}
-                      className="me-2"
+                      className="me-2 font-content"
                       {...field}
                       value={part}
                     />)}
@@ -218,7 +257,7 @@ const Create = ({ productValue, handleClose }: Props): React.Node => {
           <hr />
           <Form.Group as={Row} className="mb-3">
             <Col>
-              <Form.Label column sm md="auto" className="fw-bold me-1">
+              <Form.Label column sm md="auto" className="fs-5 me-1 font-content">
                 Product Price :
               </Form.Label>
               <Field name="priceText" type="text" placeholder="price number" />
@@ -231,19 +270,19 @@ const Create = ({ productValue, handleClose }: Props): React.Node => {
           </Form.Group>
           <hr />
           <Form.Group className="mb-3 d-flex " >
-            <Form.Label className="fw-bold">Status</Form.Label>
+            <Form.Label className="fs-5 font-content">Status</Form.Label>
             <Field name="isSaleSwitch"  >
               {({ field, form: { values } }) =>
                 <Form.Check
                   type="switch"
                   checked={values.isSaleSwitch}
-                  className="ms-2"
+                  className="ms-2 font-content"
                   {...field}
                 />}
             </Field>
           </Form.Group>
           <Form.Group className="mb-3 d-flex " >
-            <Form.Label className="fw-bold">New Product</Form.Label>
+            <Form.Label className="fs-5 font-content">New Product</Form.Label>
             <Field name='isNewSwitch'>
               {({ field, form: { values } }) =>
                 <Form.Check
@@ -256,7 +295,7 @@ const Create = ({ productValue, handleClose }: Props): React.Node => {
           </Form.Group>
           <hr />
           <Form.Group className="mb-3 d-flex " >
-            <Form.Label className="fw-bold">Popular</Form.Label>
+            <Form.Label className="fs-5 font-content">Popular</Form.Label>
             <Field name='isPopularSwitch'>
               {({ field, form: { values } }) =>
                 <Form.Check
@@ -270,7 +309,7 @@ const Create = ({ productValue, handleClose }: Props): React.Node => {
           <hr />
           <Form.Group as={Row} className="mb-3">
             <Col>
-              <Form.Label column sm md="auto" className="fw-bold">
+              <Form.Label column sm md="auto" className="fs-5 font-content">
                 Product Images :
               </Form.Label>
               <Field name="imagesFile">{({ field, form: { values, setFieldValue } }) =>
@@ -300,7 +339,7 @@ const Create = ({ productValue, handleClose }: Props): React.Node => {
 
           <Form.Group as={Row} className="mb-3">
             <Col>
-              <Form.Label column sm md="auto" className="fw-bold">
+              <Form.Label column sm md="auto" className="fs-5 font-content">
                 Product Detail :
               </Form.Label>
               <Field name="contentTextarea">
@@ -321,7 +360,7 @@ const Create = ({ productValue, handleClose }: Props): React.Node => {
           </Form.Group>
           <Form.Group as={Row} className="mb-3">
             <Col>
-              <Form.Label column sm md="auto" className="fw-bold">
+              <Form.Label column sm md="auto" className="fs-5 font-content">
                 Detail Images:
               </Form.Label>
               <Field name="detailImagesFile">{({ field, form: { values, setFieldValue } }) =>
@@ -348,7 +387,7 @@ const Create = ({ productValue, handleClose }: Props): React.Node => {
               />
             }</FieldArray>
           </Form.Group>
-          <Button type="submit" variant="secondary" disabled={isSubmitting}>
+          <Button type="submit" variant="secondary" className=' fs-5 font-btn'>
             Create Product
           </Button>
         </Form>
@@ -361,10 +400,9 @@ const Create = ({ productValue, handleClose }: Props): React.Node => {
             viewBox="0 0 18 18"
             width="33"
             height="33"
-          />) : ""
+          />) : null
       }
     </Container >)
 }
-
 export default Create
 

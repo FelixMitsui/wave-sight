@@ -1,6 +1,6 @@
-@import "../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/functions";
 
-@import "../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/variables";
 $custom-positions: (
   -1:-1%,
   -10:-10%,
@@ -55,7 +55,7 @@ $khaki-green: #8A865D;
 $olive: #808000;
 $light-green: #90EE90;
 $cyan: #00FFFF;
-
+$light-blue: #ADD8E6;
 $colors: (
   "white" :$white,
   "black":$black,
@@ -80,6 +80,7 @@ $colors: (
   "green":$green,
   "olive":$olive,
   "light-green":$light-green,
+  "light-blue":$light-blue,
   "cyan":$cyan,
 );
 
@@ -115,7 +116,7 @@ $spacers: map-merge($spacers, ($spacer-vals ));
 
 // );
 
-@import "../node_modules/bootstrap/scss/utilities";
+@import "../../node_modules/bootstrap/scss/utilities";
 
 // $utilities: map-merge($utilities,
 //     ("margin-top": map-merge(map-get($utilities, "margin-top"),
@@ -142,13 +143,13 @@ $utilities: map-merge($utilities,
       "height": map-merge(map-get($utilities, "height"),
         (responsive:true,
           values: map-merge(map-get(map-get($utilities, "height"), "values"),
-            ("300px":300px,
-              "250px":250px,
-              "120px":120px,
-              "80px":80px,
-              "40px":40px,
-              "10px":10px,
-              "5px":5px)))),
+            ("300p":300px,
+              "250p":250px,
+              "120p":120px,
+              "80p":80px,
+              "40p":40px,
+              "10p":10px,
+              "5p":5px)))),
 
       "border-color": (property: border-color,
         class: border,
@@ -171,4 +172,4 @@ $utilities: (
 
 
 
-@import "../node_modules/bootstrap/scss/bootstrap";
+@import "../../node_modules/bootstrap/scss/bootstrap";

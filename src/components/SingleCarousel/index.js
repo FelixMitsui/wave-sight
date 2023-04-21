@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Carousel from 'react-bootstrap/Carousel'
-import '../../../src/index'
+import '../..'
 
 class SingleCarousel extends React.Component {
   constructor() {
@@ -10,10 +10,12 @@ class SingleCarousel extends React.Component {
     this.state = {
       index: 0,
     }
+
   }
 
   handleSelect = (selectedIndex, e) => {
     this.setState({ index: selectedIndex })
+
   }
 
   render() {
@@ -22,7 +24,7 @@ class SingleCarousel extends React.Component {
         <Carousel.Item>
           <img
             className="d-block w-100 "
-            src={`${process.env.ASSETS_PATH}/i-banner-fz-20211116-1.jpg` || require("assets/carousel/i-banner-fz-20211116-1.jpg")}
+            src={require('../../assets/images/i-banner-fz-20211116-1.jpg').default}
             alt="First slide"
           />
         </Carousel.Item>
@@ -30,7 +32,7 @@ class SingleCarousel extends React.Component {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src={`${process.env.ASSETS_PATH}/i-banner-fz-20211116-3.jpg` || require("assets/carousel/i-banner-fz-20211116-3.jpg")}
+            src={require("../../assets/images/i-banner-fz-20211116-3.jpg").default}
             alt="Second slide"
           />
         </Carousel.Item>
@@ -38,7 +40,7 @@ class SingleCarousel extends React.Component {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src={`${process.env.ASSETS_PATH}/i-bn20180717-2-07.jpg` || require("assets/carousel/i-bn20180717-2-07.jpg")}
+            src={require("../../assets/images/i-bn20180717-2-07.jpg").default}
             alt="Third slide"
           />
         </Carousel.Item>
@@ -46,7 +48,7 @@ class SingleCarousel extends React.Component {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src={`${process.env.ASSETS_PATH}/i-bn20180717-2-09.jpg` || require("assets/carousel/i-bn20180717-2-09.jpg")}
+            src={require("../../assets/images/i-bn20180717-2-09.jpg").default}
             alt="Third slide"
           />
         </Carousel.Item>

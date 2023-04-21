@@ -1,20 +1,14 @@
 import React from "react";
 import { Button, Image } from "react-bootstrap";
 
-
-
 const ProductTable = (props) => {
-
     const { product_name, product_images, product_sale, product_new, product_popularity, product_discount } = props?.item
-    console.log(product_new)
-
     const handleToggle = () => {
         props.handleShowEdit()
     }
-
     return (
         <>
-            <tr className="text-center ">
+            <tr className="text-center font-content">
                 <th>{props.num + 1}</th>
                 <th>{product_name}</th>
                 <th><Image
@@ -24,7 +18,7 @@ const ProductTable = (props) => {
                     width={100}
                     height={100}
                     className="mx-auto d-block "
-                    src={`http://localhost:5000/imgs/${product_images[0].originalname}`}
+                    src={product_images[0]}
                 /></th>
                 <th>{`${product_sale}`}</th>
                 <th>{`${product_new}`}</th>

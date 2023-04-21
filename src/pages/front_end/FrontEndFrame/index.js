@@ -5,8 +5,7 @@ import NavArea from "../../../containers/NavArea";
 import LoginModal from "../../../components/LoginModal";
 import RegisterModal from "../../../components/RegisterModal";
 import { useDispatch } from "react-redux";
-import { userActions } from "../../../redux/userModule";
-import "../../../index"
+import { userActions, userTypes } from "../../../redux/userModule";
 
 const FrontEndFrame = () => {
     const dispatch = useDispatch()
@@ -14,54 +13,34 @@ const FrontEndFrame = () => {
     const [isRegisterShow, setIsRegisterShow] = useState(false)
     const [isLogin, setIsLogin] = useState(false)
 
-    const handleLogin = (vals) => {
+    const handleLogin = (userInfo) => {
 
-        const userlogin = {
-            email: vals[0],
-            password: vals[1],
-        }
-
-        dispatch(userActions.login(userlogin))
+        dispatch({ type: userTypes.LOGIN_REQUEST, payload: userInfo })
         setIsLoginShow(false)
     }
-
-    const handleRegister = (vals) => {
-
-        const userInfo = {
-            userName: vals[0],
-            email: vals[1],
-            password: vals[2],
-        }
-
-        dispatch(userActions.register(userInfo))
+    const handleRegister = (userInfo) => {
+        dispatch({ type: userTypes.REGISTER_REQUEST, payload: userInfo })
         setIsRegisterShow(false)
     }
-
     return (
-
         <>
             <NavArea
                 navLink={[
-                    { linkName: 'Men', path: 'product/men' },
-                    { linkName: 'Women', path: 'product/women' },
-                    { linkName: 'Kid', path: 'product/kid' },
-                    { linkName: 'Other', path: 'product/other' }]}
+                    { linkName: 'Men', path: '/products/men' },
+                    { linkName: 'Women', path: '/products/women' },
+                    { linkName: 'Kid', path: '/products/kid' },
+                    { linkName: 'Other', path: '/products/other' }]}
                 setIsLoginShow={() => setIsLoginShow(true)}
                 setIsRegisterShow={() => setIsRegisterShow(true)}
                 isLogin={isLogin}
                 setIsLogin={(islogin) => setIsLogin(islogin)}
             />
-            <Container
-                className="mt-6"
-            >
+            <Container className="mt-6 min-vh-100">
                 <Outlet />
             </Container>
             <LoginModal show={isLoginShow} handleClose={() => setIsLoginShow(false)} handleLogin={handleLogin} />
             <RegisterModal show={isRegisterShow} handleClose={() => setIsRegisterShow(false)} handleRegister={handleRegister} />
         </>
     )
-
-
 }
-
 export default FrontEndFrame

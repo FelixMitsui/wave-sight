@@ -4,10 +4,10 @@ import * as React from 'react'
 const SvgArrowRightIcon = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={20}
-    height={20}
+    width={16}
+    height={16}
     fill="currentColor"
-    className=" arrow-right-icon_svg__bi arrow-right-icon_svg__bi-chevron-right"
+    className="arrow-right-icon_svg__bi arrow-right-icon_svg__bi-chevron-right"
     {...props}
   >
     <path

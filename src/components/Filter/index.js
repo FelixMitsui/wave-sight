@@ -1,11 +1,8 @@
 import React, { useRef } from 'react'
-
 import { Form } from 'react-bootstrap'
 
 const Filter = ({ handlePriceSort }) => {
-
   const priceRef = useRef()
-
   return (
     < Form >
       <Form.Group>
@@ -19,8 +16,6 @@ const Filter = ({ handlePriceSort }) => {
         </Form.Select>
       </Form.Group>
     </Form >
-
-
   )
 }
 

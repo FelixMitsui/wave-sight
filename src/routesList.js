@@ -13,7 +13,7 @@ import ManageFrame from "../src/pages/manage/ManageFrame"
 import EditUser from "../src/pages/manage/EditUser"
 import EditProduct from "../src/pages/manage/EditProduct"
 
-
+const pathName = location.pathname
 
 export const routes = [
     {
@@ -24,12 +24,6 @@ export const routes = [
             {
                 path: '/',
                 element: <Home />,
-
-            },
-            {
-                path: 'detail/:id',
-                breadcrumbName: 'Detail',
-                element: <Detail />,
 
             },
             {
@@ -45,11 +39,12 @@ export const routes = [
 
             },
             {
-                path: 'search',
+                path: '/search',
                 breadcrumbName: 'search',
                 element: <Search />,
 
-            }
+            },
+
         ]
     },
     {
@@ -78,24 +73,30 @@ export const routes = [
 
             },
         ]
+    },
+    {
+        path: "*",
+        element: <FrontEndFrame />,
     }
 ]
 
+let categoryArray = ['men', 'women', 'kid', 'other'];
 
-
-
-
-let categoryArray = ['men', 'women', 'kid', 'other']
-
-categoryArray.map((category) => (
-    routes[0].children.push({
+categoryArray.forEach(category => {
+    const productRoute = {
         key: category,
-        path: `product/${category}`,
+        path: `/products/${category}`,
         breadcrumbName: category,
         element: <Product />,
+        children: [
+            {
+                path: `:id`,
+                breadcrumbName: 'Detail',
+                element: <Detail />,
+            },
+        ],
+    };
 
-    }
-    )
-)
-)
+    routes[0].children.push(productRoute);
+});
 

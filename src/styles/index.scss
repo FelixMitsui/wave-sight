@@ -1,6 +1,56 @@
 @use "sass:map";
 @import "~bootstrap/scss/bootstrap";
 @import "custom.scss";
+@import "animation.css";
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+// body {
+//   min-height: 100vh;
+// }
+
+
+.text-decoration:hover {
+  text-decoration: underline;
+  text-decoration-color: $gray;
+}
+
+.index-1 {
+  z-index: 1001;
+}
+
+.index-2 {
+  z-index: 1002;
+}
+
+.index-3 {
+  z-index: 1003;
+}
+
+.bg-primary {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.font-nav {
+  font-family: monospace;
+}
+
+.font-title {
+  font-family: fantasy;
+}
+
+.font-content {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+.font-btn {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+}
 
 @for $i from 1 through 6 {
   .purple-lv#{7-$i} {
@@ -56,30 +106,6 @@
   }
 }
 
-.index-3 {
-  z-index: 3;
-}
-
-.index-4 {
-  z-index: 4;
-}
-
-.index-1 {
-  z-index: 1;
-}
-
-.index-2 {
-  z-index: 2;
-}
-
-.index-0 {
-  z-index: 0;
-}
-
-.bg-primary {
-  --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
-}
 
 
 @media (max-width: 990px) {
@@ -94,15 +120,4 @@
     top: 8%;
     right: 1%;
   }
-}
-
-
-.font-style {
-  font-family: fantasy;
-}
-
-
-.nav-default {
-  transition: transform 1s ease-in;
-  transform: translateX(0%) !important;
 }

@@ -5,9 +5,7 @@ import { CrossIcon } from "../../../src/Icons"
 import PropTypes from 'prop-types';
 import { BACKEND_IMAGE_URL } from '../../util/constants/url'
 
-const ImgList = ({ imagesFile, remove }) => {
-
-
+const ImgList = ({ imagesFile = [], remove }) => {
     const handleDeleteImg = (imageFile) => {
         const imgIndex = imagesFile.indexOf(imageFile)
         remove(imgIndex)
@@ -21,7 +19,6 @@ const ImgList = ({ imagesFile, remove }) => {
                     lg={3}
                     key={uuid()}
                     className="mt-2 position-relative">
-
                     <div
                         className="position-absolute start-80"
                         onClick={() => handleDeleteImg(imageFile)}
@@ -39,7 +36,7 @@ const ImgList = ({ imagesFile, remove }) => {
                             height={100}
                             className=""
                             src={
-                                imageFile.imageUrl || `${BACKEND_IMAGE_URL}/${imageFile.originalname}`
+                                imageFile.imageUrl || imageFile
                             }
                         />
                     </div>
