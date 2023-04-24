@@ -1,5 +1,5 @@
 /** @format */
-import React, { useEffect, useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { Table, Stack, Button, Row } from 'react-bootstrap'
 import { matchRoutes } from 'react-router-dom'
 import { routes } from '../../../routesList'
@@ -12,38 +12,28 @@ import uuid from 'react-uuid';
 
 const Cart = () => {
   const dispatch = useDispatch()
+
+
   const matches = matchRoutes(routes, location.pathname)
   const { user } = useSelector((state) => state.user)
   const [isLoading, setIsLoading] = useState(false)
   const [totalCash, setTotalCash] = useState(0)
 
-  const handleCalculate = (priceNumber) => {
+  const handleCalculate = useCallback((priceNumber) => {
     setTotalCash((prev) => prev + priceNumber)
-  }
-  const updateItemQuantity = async (quantity) => {
+  }, [])
+  const updateItemQuantity = useCallback(async (quantity) => {
     setIsLoading(true)
     await dispatch({ type: userTypes.UPDATE_ITEM_QUANTITY_REQUEST, payload: quantity })
     setTimeout(() => {
       setIsLoading(false);
     }, 1000);
-  }
-  const deleteCartItem = (userInfo, priceNumber) => {
+  }, [])
+  const deleteCartItem = useCallback((userInfo, priceNumber) => {
     setTotalCash((prev) => prev - priceNumber)
     dispatch({ type: userTypes.DELETE_CART_ITEM_REQUEST, payload: userInfo })
-  }
-  const tableItems =
-    user?.shopping_cart?.map((item, index) => (
+  }, [])
 
-      <CartItem
-        key={item.product_mark}
-        number={index}
-        userId={user._id}
-        item={item}
-        handleCalculate={handleCalculate}
-        deleteCartItem={deleteCartItem}
-        updateItemQuantity={updateItemQuantity}
-      />
-    ))
   return (
     <>
       {isLoading ?
@@ -58,7 +48,7 @@ const Cart = () => {
       </div >
       <Table striped bordered hover responsive>
         <thead>
-          <tr className="fs-6 font-content">
+          <tr className="fs-5 font-content">
             <th>No.</th>
             <th>Image</th>
             <th>Name</th>
@@ -69,14 +59,24 @@ const Cart = () => {
             <th>Edit</th>
           </tr>
         </thead>
-        <tbody >{tableItems}</tbody>
+        <tbody >{user?.shopping_cart?.map((item, index) => (
+          <CartItem
+            key={item.product_mark}
+            number={index}
+            userId={user._id}
+            item={item}
+            handleCalculate={handleCalculate}
+            deleteCartItem={deleteCartItem}
+            updateItemQuantity={updateItemQuantity}
+          />
+        ))}</tbody>
       </Table>
       <Stack direction="horizontal" gap={5} className='mt-3'>
         <div className="bg-light border ms-auto">
-          <h3 className="fw-bold">Totall:{Math.floor(totalCash)}$</h3>
+          <h3 className="fs-3 font-content">Totall:{Math.floor(totalCash)}$</h3>
         </div>
         <Button
-          className="bg-beige text-black border border-black">
+          className="bg-beige text-black fs-4 font-btn">
           Confirm
         </Button>
       </Stack>

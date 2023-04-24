@@ -16,8 +16,8 @@ const ProductCard = ({ productItem }) => {
   } = productItem
 
   return (
-    <Col className=" my-1 p-1 d-flex">
-      <Card border="secondary" className="p-1">
+    <Col className="py-2 d-flex">
+      <Card border="secondary" className="border border-1 border-gray">
         <Link to={`/products/${product_category}/${_id}`}>
           <Card.Img
             className="mt-2"
@@ -25,7 +25,7 @@ const ProductCard = ({ productItem }) => {
             src={product_images && product_images[0]}
           />
         </Link>
-        <Card.Body className='d-flex border p-1 border-1 justify-content-between   flex-column'  >
+        <Card.Body className='d-flex  justify-content-between flex-column'>
           <Card.Title as="p" className='fs-5 font-content fw-bold text-gray align-self-center'>{product_name}</Card.Title>
           {
             product_discount < 1 ? (

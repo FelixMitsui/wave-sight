@@ -34,11 +34,10 @@ const ProductCarousel = (props) => {
   const checkTotalPage = () => {
     const pageItemCount = {
       0: 2,
-      576: 2,
+      576: 3,
       768: 3,
       992: 4,
       1200: 5,
-      1400: 6,
     };
     const itemsPerPage = Object.entries(pageItemCount)
       .reduce((prev, [breakpoint, count]) => {
@@ -86,9 +85,10 @@ const ProductCarousel = (props) => {
 
   return (
     <Container
-      className="overflow-hidden mt-2  border border-2 border-secondary position-relative "
+      className="overflow-hidden mt-2  border border-1 border-light-gray position-relative"
+      style={{ minHeight: "250px" }}
     >
-      <Row xs={2} sm={3} md={4} lg={5} xl={6}
+      <Row xs={2} sm={3} md={3} lg={4} xl={5}
         style={{
           position: "relative",
           left: `calc(${-100 * visiblePage.currentPage}% - ${24 * visiblePage.currentPage}px)`

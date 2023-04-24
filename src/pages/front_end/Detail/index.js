@@ -52,7 +52,7 @@ const Detail = () => {
       <img
         onClick={(e) => handleMainImg(e)}
         key={uuid()}
-        className="img-thumbnail border mb-1 mx-1"
+        className="img-thumbnail border border-1 border-gray mb-1 mx-1"
         src={image}
       />
     ))
@@ -99,7 +99,7 @@ const Detail = () => {
         </Col>
         <Col xs={12} sm={6} md={4}>
           {<img ref={imgRef}
-            className="img-thumbnail"
+            className="img-thumbnail border border-1 border-gray"
             src={product_images && product_images[0]} />}
         </Col >
         <Col xs={12} sm={6} md={6}>

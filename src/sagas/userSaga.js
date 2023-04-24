@@ -4,13 +4,17 @@ import {
     setUserCart, updateItemQuantity, updatePassWord, deleteCartItem
 } from '../services/axiosApi'
 import { userTypes } from '../redux/userModule';
+import { v4 as uuidv4 } from 'uuid'
 
 function* watchLogin(action) {
     try {
         const userInfo = action.payload
         const res = yield call(login, userInfo)
+
         yield put({ type: userTypes.LOGIN_SUCCESS, payload: res.data })
         alert(`Login success. (${res.status})`)
+        localStorage.setItem('loginToken', uuidv4())
+
     } catch (err) {
         alert(`${err.response.data} (${err.response.status})`)
         console.error(`Login status: (${err.response.status})`)
@@ -20,6 +24,7 @@ function* watchLogout() {
     try {
         const res = yield call(logout)
         yield put({ type: userTypes.LOGOUT_SUCCESS })
+        localStorage.clear()
         alert(res.data)
     } catch (err) {
         console.error(err)
@@ -30,6 +35,7 @@ function* watchRegister(action) {
         const userInfo = action.payload
         const res = yield call(register, userInfo)
         yield put({ type: userTypes.REGISTER_SUCCESS, payload: res.data })
+        yield localStorage.setItem('loginToken', uuidv4())
         alert('Register Success!!')
     } catch (err) {
         alert('Username or Email already registered')
@@ -63,8 +69,9 @@ function* watchCheckUserAuth() {
         const res = yield call(checkUserAuth)
         yield put({ type: userTypes.CHECK_USER_AUTH_SUCCESS, payload: res.data })
     } catch (err) {
-        yield put({ type: userTypes.CHECK_USER_AUTH_FAILED })
+        yield put({ type: userTypes.USER_FAILURE, payload: err.response })
         console.error(err)
+
     }
 }
 
@@ -96,7 +103,7 @@ function* watchUpdateItemQuantity(action) {
         const res = yield call(updateItemQuantity, quantity)
         yield put({ type: userTypes.UPDATE_ITEM_QUANTITY_SUCCESS, payload: res.data })
     } catch (err) {
-        console.error(err)
+        console.error(err.response.data)
     }
 }
 

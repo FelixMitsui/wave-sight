@@ -1,5 +1,5 @@
 /** @format */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef, memo } from 'react'
 import { Button, Image } from 'react-bootstrap'
 import useSyncCallback from '../../hooks/useSyncCallback'
 import { BACKEND_IMAGE_URL } from '../../util/constants/url'
@@ -10,6 +10,8 @@ const CartItem = ({
   updateItemQuantity,
   deleteCartItem,
 }) => {
+  const countRef = useRef(0)
+  console.log(countRef.current++);
   const {
     product_mark,
     product_image,
@@ -21,31 +23,28 @@ const CartItem = ({
     product_price,
   } = item
 
-  const [disabled, setDisabled] = useState(true)
+  const [disabled, setDisabled] = useState(false)
   const [quantity, setQuantity] = useState(Number(product_quantity))
 
   useEffect(() => {
     handleCalculate(product_price * quantity * product_discount)
   }, [])
 
-  const syncUpdateQuantity = useSyncCallback(() => {
-
+  const asyncUpdateQuantity = useSyncCallback(() => {
     updateItemQuantity({
       user_id: userId,
       product_mark,
       product_quantity: quantity
     })
-  }
-  )
+  })
+
 
   const handleIncrement = () => {
     if (quantity >= 1) {
       setQuantity((prev) => prev + 1)
-      setDisabled(false)
       handleCalculate(product_price * product_discount)
     }
-    syncUpdateQuantity()
-
+    asyncUpdateQuantity()
   }
 
   const handleDecrement = () => {
@@ -55,12 +54,12 @@ const CartItem = ({
     }
     setQuantity((prev) => prev - 1)
     handleCalculate(-product_price * product_discount)
-    syncUpdateQuantity()
+    asyncUpdateQuantity()
     if (quantity - 1 === 1) {
       setDisabled(false);
     }
   }
-  
+
   return (
     <tr className="text-center font-content">
       <th>{number + 1}</th>
@@ -97,9 +96,9 @@ const CartItem = ({
         </div>
       </th>
       <th>NT{Math.floor(product_price * quantity * product_discount)}$</th>
-      <th className='d-inline'>
+      <th >
         <Button
-          className='mt-2 btn-gray font-content'
+          className='mt-2 btn-beige border border-1 border-black font-content'
           onClick={() =>
             deleteCartItem({
               user_id: userId,
@@ -112,4 +111,4 @@ const CartItem = ({
     </tr>
   )
 }
-export default CartItem
+export default memo(CartItem)

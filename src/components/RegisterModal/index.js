@@ -62,7 +62,7 @@ const RegisterModal = ({ handleRegister, handleClose, show }) => {
       onHide={handleClose}
       size="md"
       aria-labelledby="contained-modal-title-vcenter"
-      contentClassName="gray-lv3"
+      contentClassName="bg-light-gray"
       centered
     >
       <Modal.Header closeButton>
@@ -136,7 +136,7 @@ const RegisterModal = ({ handleRegister, handleClose, show }) => {
         <Modal.Footer>
           <Button
             type="submit"
-            variant="outline-light light"
+            variant="outline-light bg-deep-gray"
             disabled={!nameIsConfirm || !emailIsConfirm || !passwordIsConfirm || !confirmPasswordIsConfirm}
           >
             Register

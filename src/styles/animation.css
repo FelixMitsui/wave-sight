@@ -9,7 +9,5 @@
 }
 
 .nav-animation {
-    animation-name: slide-in;
-    animation-duration: 1s;
-    animation-timing-function: ease-in-out;
+    animation: slide-in 1s ease-in-out;
 }

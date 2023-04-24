@@ -44,7 +44,7 @@ const PasswordModal = ({ handlePassword, handleClose, show }) => {
       onHide={handleClose}
       size="md"
       aria-labelledby="contained-modal-title-vcenter"
-      contentClassName="gray-lv3"
+      contentClassName="bg-light-gray"
       centered
     >
       <Modal.Header closeButton>
@@ -102,7 +102,7 @@ const PasswordModal = ({ handlePassword, handleClose, show }) => {
       <Modal.Footer>
         <Button
           disabled={!oldPasswordIsConfirm || !newPasswordIsConfirm || !confirmPasswordIsConfirm}
-          variant="outline-light light"
+          variant="outline-light bg-deep-gray"
           type="submit"
           onClick={() => handlePassword({ oldPassword, newPassword })}
         >

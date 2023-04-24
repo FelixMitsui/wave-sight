@@ -34,7 +34,7 @@ const LoginModal = ({ handleLogin, handleClose, show }) => {
       onHide={handleClose}
       size="md"
       aria-labelledby="contained-modal-title-vcenter"
-      contentClassName="gray-lv3"
+      contentClassName="bg-light-gray"
       centered
     >
       <Modal.Header closeButton>
@@ -79,7 +79,7 @@ const LoginModal = ({ handleLogin, handleClose, show }) => {
             user_password: password
           })}
           disabled={!emailIsConfirm || !passwordIsConfirm}
-          variant="outline-light light"
+          variant="outline-light bg-deep-gray"
           type="submit"
         >
           Login

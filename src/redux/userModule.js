@@ -35,9 +35,9 @@ const initialState = {
 export default function userReducers(state = initialState, action) {
   switch (action.type) {
     case userTypes.LOGIN_SUCCESS:
-      return { ...state, user: action.payload }
+      return { ...state, user: action.payload, error: '' }
     case userTypes.LOGOUT_SUCCESS:
-      return { ...state, user: {} }
+      return { ...state, user: {}, error: '' }
     case userTypes.REGISTER_SUCCESS:
       return { ...state, user: action.payload }
     case userTypes.CHECK_USER_AUTH_SUCCESS:

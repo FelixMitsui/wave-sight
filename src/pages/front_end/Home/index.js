@@ -23,33 +23,30 @@ const Home = () => {
   }, [])
 
   return (
-    <>
+    <div className="mt-1 min-vh-100">
       {isLoading ? <Loading /> : null}
       < SingleCarousel />
-      <Container >
-        <h1 style={{ fontFamily: "fantasy" }}
-          className="mt-2 border fw-bold d-flex justify-content-center">
-          New Sale
-        </h1>
-        <Row className="d-flex justify-content-center ">
-          <ProductCarousel filterValue="product_new" products={products} />
-        </Row>
-        <h1 style={{ fontFamily: "fantasy" }}
-          className="mt-2 border fw-bold d-flex justify-content-center">
-          Hot Sale
-        </h1>
-        <Row className="d-flex justify-content-center  ">
-          <ProductCarousel filterValue="product_popularity" products={products} />
-        </Row>
-        <h1 style={{ fontFamily: "fantasy" }}
-          className="mt-2 border fw-bold d-flex justify-content-center">
-          Discount
-        </h1>
-        <Row className="d-flex justify-content-center ">
-          <ProductCarousel filterValue="product_discount" products={products} />
-        </Row>
+      <Container className="p-0 mt-2 min-vh-100">
+        <div className="mt-2 text-center border border-light-gray border-1 ">
+          <h1 className="font-title">
+            New Sale
+          </h1>
+        </div>
+        <ProductCarousel filterValue="product_new" products={products} />
+        <div className="mt-2 text-center border border-light-gray border-1 ">
+          <h1 className=" font-title">
+            Hot Sale
+          </h1>
+        </div>
+        <ProductCarousel filterValue="product_popularity" products={products} />
+        <div className="mt-2 text-center border border-light-gray border-1 ">
+          <h1 className=" font-title">
+            Discount
+          </h1>
+        </div>
+        <ProductCarousel filterValue="product_discount" products={products} />
       </Container>
-    </>
+    </div>
   )
 }
 

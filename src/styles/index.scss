@@ -1,39 +1,33 @@
 @use "sass:map";
-@import "~bootstrap/scss/bootstrap";
+
+@import "../../node_modules/bootstrap/scss/bootstrap-reboot.scss";
+
 @import "custom.scss";
 @import "animation.css";
+
 
 * {
   margin: 0px;
   padding: 0px;
+  z-index: 1000;
   box-sizing: border-box;
 }
 
-// body {
-//   min-height: 100vh;
-// }
-
-
 .text-decoration:hover {
   text-decoration: underline;
-  text-decoration-color: $gray;
+  text-decoration-color: gray;
 }
 
 .index-1 {
-  z-index: 1001;
+  z-index: 1010;
 }
 
 .index-2 {
-  z-index: 1002;
+  z-index: 1020;
 }
 
 .index-3 {
-  z-index: 1003;
-}
-
-.bg-primary {
-  --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
+  z-index: 1030;
 }
 
 .font-nav {
@@ -50,74 +44,4 @@
 
 .font-btn {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
-}
-
-@for $i from 1 through 6 {
-  .purple-lv#{7-$i} {
-    background-color: lighten(#6800c9, $i*8%)
-  }
-}
-
-@for $i from 1 through 6 {
-  .blue-lv#{7-$i} {
-    background-color: lighten(#0025c9, $i*8%)
-  }
-}
-
-@for $i from 1 through 6 {
-  .pink-lv#{7-$i} {
-    background-color: lighten(#ce007f, $i*8%)
-  }
-}
-
-@for $i from 1 through 6 {
-  .red-lv#{7-$i} {
-    background-color: lighten(#cc0000, $i*8%)
-  }
-}
-
-@for $i from 1 through 6 {
-  .orange-lv#{7-$i} {
-    background-color: lighten(#cc7400, $i*8%)
-  }
-}
-
-@for $i from 1 through 6 {
-  .yellow-lv#{7-$i} {
-    background-color: lighten(#cab600, $i*8%)
-  }
-}
-
-@for $i from 1 through 6 {
-  .green-lv#{7-$i} {
-    background-color: lighten(#37c200, $i*8%)
-  }
-}
-
-@for $i from 1 through 6 {
-  .cyan-lv#{7-$i} {
-    background-color: lighten(#00abc2, $i*8%)
-  }
-}
-
-@for $i from 1 through 6 {
-  .gray-lv#{7-$i} {
-    background-color: lighten(#696969, $i*8%)
-  }
-}
-
-
-
-@media (max-width: 990px) {
-  .pt-btn {
-    position: absolute;
-    top: 8%;
-    right: 17%;
-  }
-
-  .pt-fold {
-    position: absolute;
-    top: 8%;
-    right: 1%;
-  }
 }

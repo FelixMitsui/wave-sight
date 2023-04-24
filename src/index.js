@@ -9,6 +9,7 @@ import RoutesElement from './Routes'
 import FootArea from './containers/FootArea'
 import './styles/index.scss';
 
+
 const App = () => {
   return (
     <BrowserRouter>

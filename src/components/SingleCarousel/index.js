@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Carousel from 'react-bootstrap/Carousel'
-import '../..'
+
 
 class SingleCarousel extends React.Component {
   constructor() {
@@ -10,33 +10,29 @@ class SingleCarousel extends React.Component {
     this.state = {
       index: 0,
     }
-
   }
 
   handleSelect = (selectedIndex, e) => {
     this.setState({ index: selectedIndex })
-
   }
 
   render() {
     return (
-      <Carousel activeIndex={this.state.index} onSelect={this.handleSelect}>
+      <Carousel style={{ minHeight: "150px" }} className="border border-1 shadow rounded my-1" activeIndex={this.state.index} onSelect={this.handleSelect}>
         <Carousel.Item>
           <img
-            className="d-block w-100 "
+            className="d-block w-100"
             src={require('../../assets/images/i-banner-fz-20211116-1.jpg').default}
             alt="First slide"
           />
         </Carousel.Item>
-
         <Carousel.Item>
           <img
-            className="d-block w-100"
+            className="d-block w-100 "
             src={require("../../assets/images/i-banner-fz-20211116-3.jpg").default}
             alt="Second slide"
           />
         </Carousel.Item>
-
         <Carousel.Item>
           <img
             className="d-block w-100"
@@ -44,7 +40,6 @@ class SingleCarousel extends React.Component {
             alt="Third slide"
           />
         </Carousel.Item>
-
         <Carousel.Item>
           <img
             className="d-block w-100"

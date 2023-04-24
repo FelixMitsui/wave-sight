@@ -6,16 +6,16 @@ import { LoginIcon, LogoutIcon, PersonIcon, RegisterIcon, ProfileIcon, ManageIco
 
 const Person = ({ userInfo: { user_name, user_role }, isLogin, handleLogout, setIsLoginShow, setIsRegisterShow }) => {
   return (
-    <Dropdown align="end" >
-      <Dropdown.Toggle variant="bg-gray border border-2" >
+    <Dropdown align="end" className='index-3' >
+      <Dropdown.Toggle variant="border-white border border-2" >
         <PersonIcon
           viewBox="0 0 18 18"
           width="30"
           height="30" />
       </Dropdown.Toggle>
-      <Dropdown.Menu className="gray-lv3 mt-3  px-3 ">
-        <Badge bg="secondary" className="fs-5 ms-4 font-content">
-          {user_name ? user_name : 'Guest'}
+      <Dropdown.Menu className="bg-light-gray mt-3 px-3">
+        <Badge bg="deep-gray" className="fs-5 ms-4 font-content">
+          {user_name || 'Guest'}
         </Badge>
         <hr />
         {isLogin ?
@@ -27,7 +27,7 @@ const Person = ({ userInfo: { user_name, user_role }, isLogin, handleLogout, set
                   width="30"
                   height="30" />
                 <NavLink to="/manage" >
-                  <Button className='fs-6 outline-light btn-secondary border ms-2 font-btn'>
+                  <Button className='index-2 fs-6 text-white outline-light btn-deep-gray border ms-2 font-btn'>
                     Manage
                   </Button>
                 </NavLink>
@@ -39,7 +39,7 @@ const Person = ({ userInfo: { user_name, user_role }, isLogin, handleLogout, set
                 width="30"
                 height="30" />
               <NavLink to="/user/profile" >
-                <Button className='fs-6 outline-light btn-secondary border ms-2 font-btn'>
+                <Button className='index-2 fs-6 text-white  outline-light btn-deep-gray border ms-2 font-btn'>
                   Profile
                 </Button>
               </NavLink>
@@ -49,7 +49,7 @@ const Person = ({ userInfo: { user_name, user_role }, isLogin, handleLogout, set
                 viewBox="0 0 18 18"
                 width="30"
                 height="30" />
-              <Button className='fs-6 outline-light btn-secondary border ms-2 font-btn' onClick={handleLogout}>
+              <Button className='index-2 fs-6 text-white outline-light btn-deep-gray border ms-2 font-btn' onClick={handleLogout}>
                 Logout
               </Button>
             </div>
@@ -60,7 +60,7 @@ const Person = ({ userInfo: { user_name, user_role }, isLogin, handleLogout, set
                 viewBox="0 0 18 18"
                 width="30"
                 height="30" />
-              <Button className='fs-6 outline-light btn-secondary border ms-2 font-btn' onClick={setIsLoginShow}>
+              <Button className='index-2 fs-6 text-white outline-light btn-deep-gray border ms-2 font-btn' onClick={setIsLoginShow}>
                 Login
               </Button>
             </div>
@@ -69,7 +69,7 @@ const Person = ({ userInfo: { user_name, user_role }, isLogin, handleLogout, set
                 viewBox="0 0 18 18"
                 width="30"
                 height="30" />
-              <Button className='fs-6 outline-light btn-secondary border ms-2 font-btn' onClick={setIsRegisterShow} >
+              <Button className='index-2 fs-6 text-white outline-light btn-deep-gray border ms-2 font-btn' onClick={setIsRegisterShow} >
                 Register
               </Button>
             </div>
