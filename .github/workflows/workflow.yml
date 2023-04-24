@@ -1,14 +1,13 @@
-name: WaveSight Workflow
+name: WaveSight
 on:
   push:
-    branches: [ main ]
+    branches: 
+    - main
 jobs:
-  my-job:
+  build:
     runs-on: self-hosted
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Run tests
-        run: |
-          npm i
-          npm run start
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+       - run: npm install
+       - run: npm run start
