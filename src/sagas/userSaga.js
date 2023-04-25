@@ -4,7 +4,6 @@ import {
     setUserCart, updateItemQuantity, updatePassWord, deleteCartItem
 } from '../services/axiosApi'
 import { userTypes } from '../redux/userModule';
-import { v4 as uuidv4 } from 'uuid'
 
 function* watchLogin(action) {
     try {
@@ -13,7 +12,7 @@ function* watchLogin(action) {
 
         yield put({ type: userTypes.LOGIN_SUCCESS, payload: res.data })
         alert(`Login success. (${res.status})`)
-        localStorage.setItem('loginToken', uuidv4())
+        localStorage.setItem('loginToken', 'true')
 
     } catch (err) {
         alert(`${err.response.data} (${err.response.status})`)
@@ -35,7 +34,7 @@ function* watchRegister(action) {
         const userInfo = action.payload
         const res = yield call(register, userInfo)
         yield put({ type: userTypes.REGISTER_SUCCESS, payload: res.data })
-        yield localStorage.setItem('loginToken', uuidv4())
+        yield localStorage.setItem('loginToken', 'true')
         alert('Register Success!!')
     } catch (err) {
         alert('Username or Email already registered')

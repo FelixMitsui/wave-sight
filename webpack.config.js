@@ -76,25 +76,25 @@ module.exports = {
         use: ['babel-loader', 'ts-loader'],
         exclude: /node_modules/,
       },
-      {
-        test: /\.svg$/,
-        use: [
-          { loader: '@svgr/webpack' },
-          { loader: 'svg-sprite-loader', options: {} },
-          {
-            loader: 'svgo-loader', options: {
-              plugins: [
-                {
-                  name: 'removeAttrs',
-                  params: {
-                    attrs: 'fill'
-                  }
-                }
-              ]
-            }
-          },
-        ],
-      },
+      // {
+      //   test: /\.svg$/,
+      //   use: [
+      //     { loader: '@svgr/webpack' },
+      //     { loader: 'svg-sprite-loader', options: {} },
+      //     {
+      //       loader: 'svgo-loader', options: {
+      //         plugins: [
+      //           {
+      //             name: 'removeAttrs',
+      //             params: {
+      //               attrs: 'fill'
+      //             }
+      //           }
+      //         ]
+      //       }
+      //     },
+      //   ],
+      // },
     ],
   },
   devServer: {
@@ -103,7 +103,7 @@ module.exports = {
     },
     hot: true,
     historyApiFallback: true,
-    port: process.env.NODE_ENV === "production" ? 'https://clothing-frontend.herokuapp.com/' : 8080,
+    port: process.env.NODE_ENV === "production" ? 'https://github.com/FelixMitsui/wave-sight' : 8080,
     compress: true,
   },
   plugins: [
@@ -123,7 +123,7 @@ module.exports = {
       },
     }),
   ],
-  mode: 'development',
+  // mode: 'development',
 
   devtool: 'source-map',
 }

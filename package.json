@@ -6,13 +6,13 @@
     "node": "14.x",
     "npm": "6.x"
   },
-  "homepage": ".",
+  "homepage": "https://github.com/FelixMitsui/wave-sight",
   "scripts": {
-    "start": "serve -s dist -l 8080",
+    "start": "serve -s dist",
     "pretty": "prettier src/components src/containers src/pages ",
     "svgr": "svgr -d src/Icons/ src/svg",
     "dev": "webpack-dev-server",
-    "build": "webpack --mode development",
+    "build": "webpack --mode production",
     "ts": "tsc",
     "flow": "flow",
     "heroku-postbuild": "webpack --mode production"
