@@ -17,7 +17,7 @@ const pathName = location.pathname
 
 export const routes = [
     {
-        path: process.env.PUBLIC_URL + '/',
+        path: process.env.PUBLIC_URL || '/',
         breadcrumbName: 'Home',
         element: <FrontEndFrame />,
         children: [
@@ -48,7 +48,7 @@ export const routes = [
         ]
     },
     {
-        path: process.env.PUBLIC_URL + '/manage',
+        path: process.env.PUBLIC_URL || '/manage',
         breadcrumbName: 'Home',
         element: <ManageFrame />,
         children: [
