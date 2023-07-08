@@ -1,24 +1,18 @@
-/** @format */
 
 export const productTypes = {
   //Request.
-  GET_FILTERED_PRODUCTS_REQUEST: 'GET_FILTERED_PRODUCTS_REQUEST',
+  GET_CAROUSEL_PRODUCTS_REQUEST: 'GET_CAROUSEL_PRODUCTS_REQUEST',
   GET_CATEGORY_PRODUCTS_REQUEST: 'GET_CATEGORY_PRODUCTS_REQUEST',
   GET_DETAIL_PRODUCT_REQUEST: 'GET_DETAIL_PRODUCT_REQUEST',
   SEARCH_PRODUCTS_REQUEST: 'SEARCH_PRODUCTS_REQUEST',
   //Success
-  GET_FILTERED_PRODUCTS_SUCCESS: 'GET_FILTERED_PRODUCTS_SUCCESS',
+  GET_CAROUSEL_PRODUCTS_SUCCESS: 'GET_CAROUSEL_PRODUCTS_SUCCESS',
   GET_CATEGORY_PRODUCTS_SUCCESS: 'GET_CATEGORY_PRODUCTS_SUCCESS',
   GET_DETAIL_PRODUCT_SUCCESS: 'GET_DETAIL_PRODUCT_SUCCESS',
   SEARCH_PRODUCTS_SUCCESS: 'SEARCH_PRODUCTS_SUCCESS',
   //Failure.
-  GET_FILTERED_PRODUCTS_FAILURE: 'GET_FILTERED_PRODUCTS_FAILURE',
-  GET_CATEGORY_PRODUCTS_FAILURE: 'GET_CATEGORY_PRODUCTS_FAILURE',
-  GET_DETAIL_PRODUCT_FAILURE: 'GET_DETAIL_PRODUCT_FAILURE',
-  SEARCH_PRODUCTS_FAILURE: 'SEARCH_PRODUCTS_FAILURE',
-  //Error message.
-  PRODUCT_ERROR: 'PRODUCT_ERROR'
-}
+  PRODUCT_ANY_FAILURE: 'PRODUCT_ANY_FAILURE',
+};
 
 const initialState = {
   men: [],
@@ -26,23 +20,25 @@ const initialState = {
   kid: [],
   other: [],
   search: [],
-  error: ''
-}
+  newProducts: [],
+  popularityProducts: [],
+  discountProducts: [],
+  message: '',
+};
 
-export function productReducers(state = initialState, action) {
+export default function productReducers(state = initialState, action) {
   switch (action.type) {
-    case productTypes.GET_FILTERED_PRODUCTS_SUCCESS:
-      return { ...state, ...action.payload }
+    case productTypes.GET_CAROUSEL_PRODUCTS_SUCCESS:
+      return { ...state, ...action.payload };
     case productTypes.GET_CATEGORY_PRODUCTS_SUCCESS:
-      return { ...state, ...action.payload }
+      return { ...state, ...action.payload };
     case productTypes.GET_DETAIL_PRODUCT_SUCCESS:
-      return { ...state, ...action.payload }
+      return { ...state, ...action.payload };
     case productTypes.SEARCH_PRODUCTS_SUCCESS:
-      return { ...state, search: action.payload }
-    case productTypes.PRODUCT_ERROR:
-      return { ...state, error: action.payload }
+      return { ...state, search: action.payload };
+    case productTypes.PRODUCT_ANY_FAILURE:
+      return { ...state, message: action.payload };
     default:
-      return state
+      return state;
   }
 }
-

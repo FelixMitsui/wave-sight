@@ -1,0 +1,32 @@
+{
+  "overrides": [
+    {
+      "files": [
+        "*.js",
+        "*.jsx",
+        "*.tsx",
+        "*.ts"
+      ],
+      "options": {
+        "printWidth": 85,
+        "tabWidth": 1,
+        "useTabs": false,
+        "semi": true,
+        "singleQuote": true,
+        "jsxSingleQuote": false,
+        "quoteProps": "as-needed",
+        "trailingComma": "es5",
+        "bracketSpacing": true,
+        "arrowParens": "avoid",
+        "requirePragma": false,
+        "insertPragma": true,
+        "proseWrap": "preserve",
+        "htmlWhitespaceSensitivity": "ignore",
+        "endOfLine": "auto",
+        "plugins": [
+          "prettier-plugin-sort-class-names"
+        ]
+      }
+    }
+  ]
+}

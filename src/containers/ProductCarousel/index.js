@@ -1,124 +1,122 @@
-import React, { useEffect, useState } from 'react'
-import { Row, Container, Button } from 'react-bootstrap'
-import ProductCard from '../../../src/components/ProductCard'
-import { ArrowLeftIcon, ArrowRightIcon } from '../../Icons'
+/** @format */
+
+import React, { useEffect, useState, useRef } from 'react';
+import { Row, Container, Button, Col } from 'react-bootstrap';
+import ProductCard from '../../components/ProductCard';
+import { ArrowLeftIcon, ArrowRightIcon } from '../../Icons';
 import { debounce } from 'lodash';
-const ProductCarousel = (props) => {
-  const [width, setWidth] = useState(document.body.clientWidth);
-  const { filterValue, products } = props
-  const [visiblePage, setVisiblePage] = useState({
-    currentPage: 0,
-    finalPage: 0,
-  })
-  const [carouselItems, setCarouselItems] = useState([])
 
+const ProductCarousel = ({ items }) => {
+    const [width, setWidth] = useState(document.body.clientWidth);
+    const [containerWidth, setContainerWidth] = useState();
+    const [visiblePage, setVisiblePage] = useState({
+        currentPage: 0,
+        finalPage: 0,
+    });
 
-  useEffect(() => {
-    handleItemDisplay()
-  }, [products])
+    const containerRef = useRef(null);
 
-  useEffect(() => {
-    const handleResize = debounce(() => {
-      setWidth((prev) => prev = document.body.clientWidth)
-    }, 1000);
-    window.addEventListener("resize", handleResize)
-    return () => {
-      window.removeEventListener("resize", handleResize)
-    }
-  }, [])
+    useEffect(() => {
+        const handleResize = debounce(() => {
+            setWidth(prev => (prev = document.body.clientWidth));
+        }, 1000);
+        handleCheckTotalPage();
+        window.addEventListener('resize', handleResize);
 
-  useEffect(() => {
-    checkTotalPage()
-  }, [width, carouselItems])
+        if (containerRef.current) {
+            setContainerWidth(containerRef.current.getBoundingClientRect().width);
+        }
 
-  const checkTotalPage = () => {
-    const pageItemCount = {
-      0: 2,
-      576: 3,
-      768: 3,
-      992: 4,
-      1200: 5,
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, [width, items]);
+
+    const handleCheckTotalPage = () => {
+        const pageItemCount = {
+            0: 2,
+            576: 2,
+            768: 3,
+            992: 4,
+            1200: 5,
+        };
+        const itemsPerPage = Object.entries(pageItemCount).reduce(
+            (prev, [breakpoint, count]) => {
+                const diff = document.body.clientWidth - breakpoint;
+
+                return diff >= 0 && diff < prev.diff ? { count, diff } : prev;
+            },
+            { count: 1, diff: Infinity }
+        ).count;
+
+        setVisiblePage(prev => ({
+            currentPage: 0,
+            finalPage: Math.max(0, Math.ceil(items.length / itemsPerPage - 1)),
+        }));
     };
-    const itemsPerPage = Object.entries(pageItemCount)
-      .reduce((prev, [breakpoint, count]) => {
-        const diff = width - breakpoint;
 
-        return (diff >= 0 && diff < prev.diff) ? { count, diff } : prev;
-      }, { count: 1, diff: Infinity })
-      .count;
+    const handleChangePage = event => {
+        console.log(visiblePage.finalPage)
+        if (event.currentTarget.name === 'prev') {
+            if (visiblePage.currentPage !== 0) {
+                setVisiblePage(prev => ({
+                    ...prev,
+                    currentPage: prev.currentPage - 1,
+                }));
+            }
+        } else if (event.currentTarget.name === 'next') {
+            if (visiblePage.currentPage < visiblePage.finalPage) {
+                setVisiblePage(prev => ({
+                    ...prev,
+                    currentPage: prev.currentPage + 1,
+                }));
+            }
+        }
+    };
 
-    setVisiblePage((prev) => ({
-      currentPage: 0,
-      finalPage: Math.ceil((carouselItems.length / itemsPerPage) - 1),
-    }));
-  };
-
-  const handleItemDisplay = () => {
-    const filteredItems = Object.values(products).reduce((result, items) => {
-      if (Array.isArray(items) && items !== products.search) {
-        const filtered = items.filter(item => {
-          if (filterValue === 'product_new' || filterValue === 'product_popularity') {
-            return item[filterValue] === true;
-          } else {
-            return item[filterValue] !== 1;
-          }
-        });
-        return result.concat(filtered);
-      }
-      return result;
-    }, []);
-    setCarouselItems(filteredItems);
-  };
-
-  const handleChangePage = (event) => {
-    if (event.currentTarget.name === 'prev') {
-      if (visiblePage.currentPage !== 0) {
-        setVisiblePage((prev) => ({ ...prev, currentPage: prev.currentPage - 1 }))
-      }
-    } else if (event.currentTarget.name === 'next') {
-      if (visiblePage.currentPage < visiblePage.finalPage) {
-        setVisiblePage((prev) => ({ ...prev, currentPage: prev.currentPage + 1 }))
-      }
-    }
-  }
-
-
-  return (
-    <Container
-      className="overflow-hidden mt-2  border border-1 border-light-gray position-relative"
-      style={{ minHeight: "250px" }}
-    >
-      <Row xs={2} sm={3} md={3} lg={4} xl={5}
-        style={{
-          position: "relative",
-          left: `calc(${-100 * visiblePage.currentPage}% - ${24 * visiblePage.currentPage}px)`
-        }}
-        className="d-flex flex-nowrap">
-        {Object.values(carouselItems).map((item) => (
-          <ProductCard key={item._id} productItem={item} />
-        ))}
-      </Row>
-      <Button
-        name="prev"
-        onClick={(event) => handleChangePage(event)}
-        disabled={visiblePage.currentPage === 0}
-        size="sm"
-        variant="secondary"
-        className="position-absolute top-50 start--1  "
-      >
-        <ArrowLeftIcon />
-      </Button>
-      <Button
-        name="next"
-        onClick={(event) => handleChangePage(event)}
-        disabled={visiblePage.currentPage === visiblePage.finalPage}
-        size="sm"
-        variant="secondary"
-        className="position-absolute top-50 end--1 "
-      >
-        <ArrowRightIcon />
-      </Button>
-    </Container>
-  )
-}
-export default ProductCarousel
+    return (
+        <Container
+            className="border border-1 border-light-gray mt-2 overflow-hidden p-0 position-relative rounded"
+        >
+            <Row
+                xs={2}
+                sm={2}
+                md={3}
+                lg={4}
+                xl={5}
+                style={{
+                    position: 'relative',
+                    transition: 'transform 0.5s ease-in-out',
+                    transform: `translateX(${-containerWidth * visiblePage.currentPage}px)`,
+                }}
+                ref={containerRef}
+                className="d-flex flex-nowrap index-2 m-1 py-1"
+            >
+                {items?.map(item => (
+                    <ProductCard key={item._id} item={item} />
+                ))}
+            </Row>
+            <Button
+                name="prev"
+                onClick={event => handleChangePage(event)}
+                size="sm"
+                variant="secondary"
+                className={`position-absolute top-50 start-0 ${visiblePage.currentPage === 0 ? 'opacity-50' : 'none'
+                    } index-3`}
+            >
+                <ArrowLeftIcon />
+            </Button>
+            <Button
+                name="next"
+                onClick={event => handleChangePage(event)}
+                size="sm"
+                variant="secondary"
+                className={`position-absolute top-50 end-0 ${visiblePage.currentPage === visiblePage.finalPage ? 'opacity-50' : 'none'
+                    } index-3`}
+            >
+                <ArrowRightIcon />
+            </Button>
+        </Container>
+    );
+};
+export default ProductCarousel;

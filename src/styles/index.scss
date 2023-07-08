@@ -1,10 +1,7 @@
-@use "sass:map";
-
-@import "../../node_modules/bootstrap/scss/bootstrap-reboot.scss";
-
-@import "custom.scss";
-@import "animation.css";
-
+@use 'sass:map';
+@import '../../node_modules/bootstrap/scss/bootstrap-reboot.scss';
+@import 'custom.scss';
+@import 'animation.css';
 
 * {
   margin: 0px;
@@ -18,30 +15,52 @@
   text-decoration-color: gray;
 }
 
-.index-1 {
-  z-index: 1010;
+.active>.page-link {
+  background-color: $deep-gray;
+  border-color: #ffffff;
 }
 
-.index-2 {
-  z-index: 1020;
+@mixin z-index($start, $end) {
+  @for $i from $start through $end {
+    .index-#{$i} {
+      z-index: 1000 + $i * 10;
+    }
+  }
 }
 
-.index-3 {
-  z-index: 1030;
+@include z-index(1, 3);
+
+//about font
+$font-families: (
+  'nav': ('Russo One',
+    sans-serif,
+  ),
+  'title': fantasy,
+  'content': ('Trebuchet MS',
+    'Lucida Sans Unicode',
+    'Lucida Grande',
+    'Lucida Sans',
+    Arial,
+    sans-serif,
+  ),
+  'btn': ('Oswald', sans-serif),
+);
+
+@each $name,
+$family in $font-families {
+  .font-#{$name} {
+    font-family: $family;
+  }
 }
 
-.font-nav {
-  font-family: monospace;
+@media screen and (max-width:768px) {
+  html {
+    font-size: 13px;
+  }
 }
 
-.font-title {
-  font-family: fantasy;
-}
-
-.font-content {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
-}
-
-.font-btn {
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+@media screen and (max-width:576px) {
+  html {
+    font-size: 12px;
+  }
 }
