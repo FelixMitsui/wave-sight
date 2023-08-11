@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkwave_sight=self.webpackChunkwave_sight||[]).push([[698],{9310:function(e,t,n){n.r(t);var a=n(7294),s=n(682),u=n(4735);t.default=function(){return a.createElement(s.Z,{className:"min-vh-100 pb-1 pt-6 px-0"},a.createElement(u.j3,null))}}}]);
