@@ -20,11 +20,11 @@
 
         if (storedRoute) {
 
-            window.history.pushState(null, null, storedRoute);
+            window.history.pushState(null, null, `/wave-sight${storedRoute}`);
         } else {
 
             console.log('No stored route found. Redirecting to homepage...');
-            window.location.href = '/';
+            window.location.href = '/wave-sight';
         }
     </script>
 </body>
