@@ -14,20 +14,19 @@
 </head>
 
 <body>
-    <div id="root">
-        <script>
-            const storedRoute = window.sessionStorage.getItem('lastRoute');
+    <div id="root"></div>
+    <script>
+        const storedRoute = window.sessionStorage.getItem('lastRoute');
 
-            if (storedRoute) {
+        if (storedRoute) {
 
-                window.history.pushState(null, null, storedRoute);
-            } else {
+            window.history.pushState(null, null, storedRoute);
+        } else {
 
-                console.log('No stored route found. Redirecting to homepage...');
-                window.location.href = '/';
-            }
-        </script>
-    </div>
+            console.log('No stored route found. Redirecting to homepage...');
+            window.location.href = '/';
+        }
+    </script>
 </body>
 
 </html>
