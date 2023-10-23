@@ -3,7 +3,7 @@ const multer = require('multer');
 const admin = require('firebase-admin');
 const { Storage } = require('@google-cloud/storage');
 
-const serviceAccount = require('../wave-sight-images-firebase-adminsdk-dtfff-eca7dc8fa7.json');
+const serviceAccount = process.env.NODE_ENV === "production" ? process.env.FIREBASE_ENV : require('../wave-sight-images-firebase-adminsdk-dtfff-eca7dc8fa7.json');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
