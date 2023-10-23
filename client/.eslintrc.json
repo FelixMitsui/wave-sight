@@ -1,0 +1,75 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "es6": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "standard-react",
+    "standard",
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
+  "ignorePatterns": ["node_modules/"],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "globals": {
+    "React": false,
+    "ReactDOM": false,
+    "moment": false,
+    "$": false,
+    "_": false,
+    "__WebpackModuleApi": true
+  },
+  "plugins": ["react", "react-hooks", "prettier"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@typescript-eslint/recommended"],
+      "plugins": ["@typescript-eslint"]
+    }
+  ],
+  "rules": {
+    "prettier/prettier": "error",
+    "arrowParens": "avoid",
+    "space-before-function-paren": 0,
+    "jsx-quotes": 1,
+    "semi": ["error", "always"],
+    "camelcase": "off",
+    "react/prop-types": 0,
+    "react/no-unknown-property": 0,
+    "react/no-unescaped-entities": [
+      "error",
+      {
+        "forbid": [
+          {
+            "char": "`'`",
+            "alternatives": ["`&#39`"]
+          }
+        ]
+      }
+    ],
+    "indent": [
+      "error",
+      2,
+      {
+        "ignoredNodes": ["TemplateLiteral"]
+      }
+    ]
+  },
+  "settings": {
+    "react": {
+      "version": "17.0"
+    }
+  }
+}
