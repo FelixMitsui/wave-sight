@@ -28,11 +28,13 @@ export default function ProductsEntry() {
 
     useEffect(() => {
 
+        if (!products) {
+            dispatch({
+                type: productTypes.GET_PRODUCTS_REQUEST,
+                payload: { queryParams },
+            });
+        }
 
-        dispatch({
-            type: productTypes.GET_PRODUCTS_REQUEST,
-            payload: { queryParams },
-        });
 
     }, [location]);
 

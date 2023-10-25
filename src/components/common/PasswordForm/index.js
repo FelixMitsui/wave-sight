@@ -2,16 +2,13 @@
 import React, { useRef } from 'react';
 import useInputValidate from '../../../hooks/useInputValidate';
 import { Button, Form, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
+import { userTypes } from '../../../redux/userModule';
 import { PASSWORD_REGEX } from '../../../utils/constants/formValid';
 
 const isPasswordFormat = value => PASSWORD_REGEX.test(value);
 
-const PasswordForm = ({
-    onDisplay,
-    isDisplay,
-    onFormSubmit,
-    user_id,
-}) => {
+const PasswordForm = ({ user_id, user_auth }) => {
+
     const checkPasswordRef = useRef();
     const oldPasswordRef = useRef();
     const confirmPasswordRef = useRef();
@@ -47,10 +44,24 @@ const PasswordForm = ({
         onBlurValue: onBlurConfirmPassword,
     } = useInputValidate(isPasswordMatchFormat, 'confirm password');
 
+    const handleFormSubmit = formValue => {
+
+        return (event) => {
+
+            event.preventDefault();
+
+            if (user_auth | 0) {
+                return;
+            }
+
+            dispatch({ type: userTypes.UPDATE_PASSWORD_REQUEST, payload: formValue });
+        };
+    };
+
     return (
 
         <Form
-            onSubmit={onFormSubmit({ user_id, oldPassword, newPassword })}
+            onSubmit={handleFormSubmit({ user_id, oldPassword, newPassword })}
             className="d-flex flex-column"
         >
             <FormGroup className="mb-3" controlId="formBasicPassword">

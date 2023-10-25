@@ -1,4 +1,3 @@
-
 import React from 'react';
 import useInputValidate from '../../../hooks/useInputValidate';
 import {
@@ -10,11 +9,13 @@ import {
     Modal,
 } from 'react-bootstrap';
 import { PASSWORD_REGEX, EMAIL_REGEX } from '../../../utils/constants/formValid';
+import { userTypes } from '../../../redux/userModule';
 
 const isPasswordFormat = value => PASSWORD_REGEX.test(value);
 const isEmailFormat = value => EMAIL_REGEX.test(value);
 
-const LoginForm = ({ onFormSubmit }) => {
+const LoginForm = () => {
+
     const {
         value: user_email,
         message: messageEmail,
@@ -33,10 +34,20 @@ const LoginForm = ({ onFormSubmit }) => {
         onBlurValue: onBlurPassword,
     } = useInputValidate(isPasswordFormat, 'password');
 
+    const handleFormSubmit = formValue => {
+
+        return (event) => {
+
+            event.preventDefault();
+
+            dispatch({ type: userTypes.LOGIN_REQUEST, payload: formValue });
+        };
+    };
+
     return (
 
         <Form
-            onSubmit={onFormSubmit({ user_email, user_password })}
+            onSubmit={handleFormSubmit({ user_email, user_password })}
             className="d-flex flex-column"
         >
             <FormGroup className="mb-3" controlId="formBasicEmail">

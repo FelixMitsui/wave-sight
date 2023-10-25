@@ -17,6 +17,7 @@ export const manageTypes = {
   SET_LOADING_SUCCESS: 'SET_LOADING_SUCCESS',
   DELETE_PRODUCT_IMG_SUCCESS: 'DELETE_PRODUCT_IMG_SUCCESS',
 
+
   //Loading
   LOADING: 'LOADING',
   FINISH: 'FINISH',
@@ -60,6 +61,8 @@ export default function manageReducers(state = initialState, action) {
 
     case manageTypes.DELETE_PRODUCT_IMG_SUCCESS:
       return { ...state };
+
+
 
     case manageTypes.LOADING:
 

@@ -131,6 +131,33 @@ function* watchSearchProducts(action) {
     }
 }
 
+function* watchCleanProductItems(action) {
+
+    try {
+
+        const products = yield select(state => state.product.items);
+
+        const productsClone = cloneDeep(products);
+        console.log(productsClone)
+        if (productsClone.has(action.payload)) {
+
+            productsClone.delete(action.payload);
+
+            yield put({
+                type: productTypes.CLEAN_PRODUCT_ITEMS_RECEIVE,
+                payload: productsClone,
+            });
+
+        } else {
+            throw new Error("Product not found.");
+        }
+
+    } catch (err) {
+
+        console.log(err.message);
+    }
+}
+
 export default function* productSaga() {
     yield takeLatest(productTypes.GET_CAROUSEL_PRODUCTS_REQUEST,
         watchGetCarouselProducts
@@ -139,6 +166,7 @@ export default function* productSaga() {
         productTypes.GET_PRODUCTS_REQUEST,
         watchGetProducts
     );
+    yield takeLatest(productTypes.CLEAN_PRODUCT_ITEMS_SEND, watchCleanProductItems);
     yield takeLatest(productTypes.GET_DETAIL_PRODUCT_REQUEST, watchGetDetailProduct);
     yield takeLatest(productTypes.SEARCH_PRODUCTS_REQUEST, watchSearchProducts);
 }

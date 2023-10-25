@@ -6,13 +6,13 @@ import withModal from '../../../HOC/withModal';
 import NavButton from '../../common/NavButton';
 import LoginForm from '../../common/LoginForm';
 import RegisterForm from '../../common/RegisterForm';
-import { userTypes } from '../../../redux/userModule';
 
 const Person = ({ user_name, user_auth, isLogin }) => {
 
     const dispatch = useDispatch();
 
     const LoginFormWithModal = withModal(LoginForm);
+
     const RegisterFormWithModal = withModal(RegisterForm);
 
 
@@ -50,10 +50,10 @@ const Person = ({ user_name, user_auth, isLogin }) => {
                         </>
                     ) : (
                         <>
-                            <LoginFormWithModal title="Login" btnName="Login" actionType={userTypes.LOGIN_REQUEST}>
+                            <LoginFormWithModal title="Login" btnName="Login">
                                 <i className="bx  bxs-log-in fs-3" />
                             </LoginFormWithModal>
-                            <RegisterFormWithModal title="Register" btnName="Register" actionType={userTypes.REGISTER_REQUEST}>
+                            <RegisterFormWithModal title="Register" btnName="Register">
                                 <i className="bx  bx-registered fs-3"></i>
                             </RegisterFormWithModal>
                         </>

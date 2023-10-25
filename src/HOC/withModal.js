@@ -1,33 +1,16 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Button, Modal } from 'react-bootstrap';
 
-const withModal = ModalComponent => {
+const withModal = OutSideComponent => {
 
     return props => {
 
-        const { title, user_auth, btnName, btnSize, className, actionType, children, ...rest } = props;
-
-        const dispatch = useDispatch();
+        const { title, btnName, btnSize, className, children, ...rest } = props;
 
         const [isDisplay, setIsDisplay] = useState(false);
 
         const handleDisplay = () => {
             setIsDisplay(prev => !prev);
-        };
-
-        const handleFormSubmit = formValue => {
-
-            return (event) => {
-
-                event.preventDefault();
-
-                if (user_auth | 0 && btnName === 'Change Password') {
-                    return;
-                }
-
-                dispatch({ type: actionType, payload: formValue });
-            };
         };
 
         return (
@@ -46,10 +29,8 @@ const withModal = ModalComponent => {
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body className="d-flex flex-column">
-                        <ModalComponent
+                        <OutSideComponent
                             {...rest}
-                            isDisplay={isDisplay}
-                            onFormSubmit={handleFormSubmit}
                         />
                     </Modal.Body>
                 </Modal>

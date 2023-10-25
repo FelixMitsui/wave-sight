@@ -10,6 +10,11 @@ export const productTypes = {
   GET_PRODUCTS_SUCCESS: 'GET_PRODUCTS_SUCCESS',
   GET_DETAIL_PRODUCT_SUCCESS: 'GET_DETAIL_PRODUCT_SUCCESS',
   SEARCH_PRODUCTS_SUCCESS: 'SEARCH_PRODUCTS_SUCCESS',
+
+  //Clean items
+  CLEAN_PRODUCT_ITEMS_SEND: "CLEAN_PRODUCT_ITEMS_SEND",
+  CLEAN_PRODUCT_ITEMS_RECEIVE: "CLEAN_PRODUCT_ITEMS_RECEIVE",
+
   //Failure.
   PRODUCT_ANY_FAILURE: 'PRODUCT_ANY_FAILURE',
 };
@@ -44,6 +49,9 @@ export default function productReducers(state = initialState, action) {
     case productTypes.SEARCH_PRODUCTS_SUCCESS:
 
       return { ...state, search: new Map([...state.search, ...action.payload]) };
+
+    case productTypes.CLEAN_PRODUCT_ITEMS_RECEIVE:
+      return { ...state, items: action.payload };
 
     case productTypes.PRODUCT_ANY_FAILURE:
 

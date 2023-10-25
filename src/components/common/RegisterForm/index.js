@@ -15,11 +15,13 @@ import {
     EMAIL_REGEX,
     PASSWORD_REGEX,
 } from '../../../utils/constants/formValid';
+import { userTypes } from '../../../redux/userModule';
+
 const isNameFormat = value => NAME_REGEX.test(value);
 const isPasswordFormat = value => PASSWORD_REGEX.test(value);
 const isEmailFormat = value => EMAIL_REGEX.test(value);
 
-const RegisterForm = ({ onFormSubmit }) => {
+const RegisterForm = () => {
 
     const checkPasswordRef = useRef();
 
@@ -61,10 +63,20 @@ const RegisterForm = ({ onFormSubmit }) => {
         onBlurValue: onBlurEmail,
     } = useInputValidate(isEmailFormat, 'email');
 
+    const handleFormSubmit = formValue => {
+
+        return (event) => {
+
+            event.preventDefault();
+
+            dispatch({ type: userTypes.REGISTER_REQUEST, payload: formValue });
+        };
+    };
+
     return (
 
         <Form
-            onSubmit={onFormSubmit({ user_name, user_email, user_password })}
+            onSubmit={handleFormSubmit({ user_name, user_email, user_password })}
             className="d-flex flex-column"
         >
             <FormGroup className="mb-3" controlId="formBasicEmail">

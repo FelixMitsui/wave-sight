@@ -106,9 +106,8 @@ const UserForm = ({ infoItem }) => {
                 <PasswordFormWithModal
                     title="Change Password"
                     btnName="Change Password"
-                    user_auth={user_auth}
-                    actionType={userTypes.UPDATE_PASSWORD_REQUEST}
                     btnSize={5}
+                    user_auth={user_auth}
                 />
             </div>
         </Container>

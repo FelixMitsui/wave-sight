@@ -19,9 +19,9 @@ const App = () => {
             <Header />
             <LiftingArrow />
             <Suspense fallback={
-                <div className="d-flex align-items-center rounded p-3 position-fixed top-50 start-45 bg-light-gray index-4 ">
-                    <div className="me-2 mb-2 spinner-grow" role="status"></div>
-                    <h2 className="font-title">Loading...</h2>
+                <div className="d-flex rounded p-2 position-fixed top-50 start-30 bg-light-gray index-4 ">
+                    <div className="mx-1 my-0 spinner-grow" role="status"></div>
+                    <h2 className="mx-1 my-0 font-title">Loading...</h2>
                 </div>}>
                 <RouteGroup />
             </Suspense>
