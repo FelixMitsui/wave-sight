@@ -1,4 +1,7 @@
 ## wave-sight
+
+![image](https://github.com/FelixMitsui/wave-sight/blob/main/public/assets/images/bind_221031.png?raw=true)
+
 ## 專案應用
 
 組件以React Hooks 編寫,React-Bootstrap做為樣式.
