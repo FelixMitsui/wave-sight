@@ -98,14 +98,15 @@ const Header = () => {
                         className="ms-2 border border-2 border-white"
                     />
                 </Nav>
+                {userMessage && <MessageToast message={userMessage} />}
+                {productMessage && <MessageToast message={productMessage} />}
             </Navbar >
             <div
                 className="bottom-0 end-0 index-1 position-fixed start-0 top-0"
                 onClick={handleToggleDisplay}
                 style={{ display: `${isToggle ? 'block' : 'none'}` }}
             />
-            {userMessage && <MessageToast message={userMessage} />}
-            {productMessage && <MessageToast message={productMessage} />}
+
         </header>
     );
 };
