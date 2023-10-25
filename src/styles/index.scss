@@ -1,0 +1,66 @@
+@use 'sass:map';
+@import '../../node_modules/bootstrap/scss/bootstrap-reboot.scss';
+@import 'custom.scss';
+@import 'animation.css';
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+.text-decoration:hover {
+  text-decoration: underline;
+  text-decoration-color: gray;
+}
+
+.active>.page-link {
+  background-color: $deep-gray;
+  border-color: #ffffff;
+}
+
+.dropdown-menu {
+  --bs-dropdown-link-active-bg: $deep-gray !important;
+}
+
+.nav-link:focus,
+.nav-link:hover {
+  background-color: $light-gray !important;
+}
+
+@mixin z-index($start, $end) {
+  @for $i from $start through $end {
+    .index-#{$i} {
+      z-index: 1000 + $i * 10;
+    }
+  }
+}
+
+@include z-index(1, 4);
+
+//about font
+$font-families: (
+  'nav': ('Russo One',
+    sans-serif,
+  ),
+  'title': fantasy,
+  'content': ('Trebuchet MS',
+    'Lucida Sans Unicode',
+    'Lucida Grande',
+    'Lucida Sans',
+    Arial,
+    sans-serif,
+  ),
+  'btn': ('Oswald', sans-serif),
+);
+
+@each $name,
+$family in $font-families {
+  .font-#{$name} {
+    font-family: $family;
+  }
+}
+
+html {
+  font-size: clamp(1rem, 1.2vw, 2rem)
+}

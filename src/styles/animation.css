@@ -1,0 +1,27 @@
+@keyframes slide-in {
+  from {
+    transform: translateX(-150%);
+  }
+
+  to {
+    transform: translateX(0%);
+  }
+}
+
+.nav-animation {
+  animation: slide-in 1s ease-in-out;
+}
+
+@keyframes toast-in-out {
+  0% {
+    transform: translateX(100%)
+  }
+
+  25%, 75% {
+    transform: translateX(0)
+  }
+
+  100% {
+    transform: translateX(100%)
+  }
+}
