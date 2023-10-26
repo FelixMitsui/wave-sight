@@ -3,47 +3,23 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import CheckoutForm from '../../../components/user/CheckoutForm';
-
 import CartTable from '../../../components/user/CartTable';
 import BreadCrumb from '../../../components/common/BreadCrumb';
 import { Row, Col } from 'react-bootstrap';
-
-type SelectState = {
-    user: {
-        info: Info;
-        isLogin: boolean;
-    };
-};
-
-type Info = {
-    _id?: string;
-    user_name: string;
-    user_email: string;
-    user_phone: string;
-    user_address: string;
-    shopping_cart: Item[];
-};
-
-type Item = {
-    product_mark: string;
-    product_image: string;
-    product_name: string;
-    product_color: string;
-    product_size: string;
-};
+import { RootState } from 'redux/store';
 
 const Checkout = () => {
 
     const navigate = useNavigate();
 
-    const { info: userInfo, isLogin } = useSelector((state: SelectState) => state.user);
+    const { info: user, isLogin } = useSelector((state: RootState) => state.user);
 
-    const { shopping_cart } = userInfo;
+    const { shopping_cart } = user;
 
     const loginToken = localStorage.getItem('loginToken');
 
     useEffect(() => {
-        if ((!loginToken && !isLogin) || shopping_cart?.length === 0) {
+        if ((!loginToken && !isLogin) || !shopping_cart?.length) {
             navigate('/');
         }
     }, [isLogin]);
@@ -57,7 +33,7 @@ const Checkout = () => {
                     <CartTable cartItems={shopping_cart} isEdit={false} />
                 </Col>
                 <Col lg={12} xl={6}>
-                    <CheckoutForm userInfo={userInfo}></CheckoutForm>
+                    <CheckoutForm user={user}></CheckoutForm>
                 </Col>
             </Row>
         </section>

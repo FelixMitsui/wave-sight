@@ -1,9 +1,8 @@
 
-import React from 'react';
+import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
 import getCurrentTime from '../../../utils/tools/getCurrentTime';
 import {
     Form,
@@ -15,20 +14,13 @@ import {
     Button,
 } from 'react-bootstrap';
 import { userTypes } from '../../../redux/userModule';
+import { User } from 'types/User';
+import { valuesSchema } from './constants';
 
 const shortid = require('shortid');
 
 type FormProps = {
-    userInfo: UserInfo;
-};
-
-type UserInfo = {
-    _id?: string;
-    user_name: string;
-    user_email: string;
-    user_phone: string;
-    user_address: string;
-    shopping_cart: Array<object>;
+    user: User;
 };
 
 type FormValues = {
@@ -42,48 +34,12 @@ type FormValues = {
     invoice?: object | string;
 };
 
-const valuesSchema = Yup.object().shape({
-    userName: Yup.string()
-        .required('required!')
-        .min(3, 'Words cannot be less than 3!')
-        .max(15, 'Words should be less than 15!'),
-    userEmail: Yup.string()
-        .required('required!')
-        .email('Invalid format!')
-        .min(12, 'Words cannot be less than 12!')
-        .max(26, 'Words should be less than 26!'),
-    userAddress: Yup.string()
-        .required('required!')
-        .min(6, 'Words cannot be less than 6!')
-        .max(30, 'Words should be less than 30!'),
-    userPhone: Yup.string()
-        .required('Required!')
-        .test('is-valid-phone', 'Invalid format!', value => {
-            if (value) {
-                return /^0\d{9}$/.test(value);
-            }
-            return false;
-        })
-        .min(10, 'Words cannot be less than 10!')
-        .max(10, 'Words should be less than 10!'),
-    deliveryMethod: Yup.string().required('required!'),
-    payMethod: Yup.string().required('required!'),
-    remark: Yup.string().max(25, 'Words should be less than 30!'),
-    invoice: Yup.object().shape({
-        type: Yup.string().required('required!!'),
-        number: Yup.string().when('type', {
-            is: 'Paper invoice',
-            then: Yup.string().notRequired(),
-            otherwise: Yup.string()
-                .required('required!')
-                .min(8, 'Words cannot be less than 8!')
-                .max(12, 'Words should be less than 12!'),
-        }),
-    }),
-});
-const CheckoutForm: React.FC<FormProps> = ({ userInfo }) => {
 
+const CheckoutForm: FC<FormProps> = ({ user }) => {
+
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const {
         _id: user_id,
         user_address,
@@ -91,8 +47,9 @@ const CheckoutForm: React.FC<FormProps> = ({ userInfo }) => {
         user_name,
         user_phone,
         shopping_cart,
-    } = userInfo || {};
-    const dispatch = useDispatch();
+    } = user || {};
+
+
     const initialValues: FormValues = {
         userName: '',
         userEmail: '',

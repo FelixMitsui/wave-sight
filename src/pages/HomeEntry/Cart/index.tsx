@@ -1,17 +1,17 @@
+
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import BreadCrumb from '../../../components/common/BreadCrumb';
-import OrderTable from '../../../components/user/OrderTable';
+import CartTable from '../../../components/user/CartTable';
 import { RootState } from 'redux/store';
 
-
-const Order = () => {
+const Cart = () => {
 
     const navigate = useNavigate();
 
     const {
-        info: { user_order },
+        info: { _id, shopping_cart },
         isLogin,
     } = useSelector((state: RootState) => state.user);
 
@@ -21,14 +21,15 @@ const Order = () => {
         if (!loginToken && !isLogin) {
             navigate('/');
         }
-    }, [isLogin, loginToken]);
+    }, [isLogin]);
 
     return (
         <section className="pt-3">
             <BreadCrumb />
-            <h1 className="font-title mt-2 text-center text-white bg-gray">Order</h1>
-            <OrderTable orderItems={user_order} />
+            <h1 className="mt-2 border bg-gray font-title text-center text-white">Cart</h1>
+            <CartTable cartItems={shopping_cart} user_id={_id} isEdit={true} />
         </section>
     );
 };
-export default Order;
+
+export default Cart;

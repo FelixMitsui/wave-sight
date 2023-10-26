@@ -1,23 +1,17 @@
 import React, { FC } from "react";
+import { User } from "types/User";
 import { Button } from "react-bootstrap";
 
-type UserProps = {
-    item: Item,
+type TableRowProps = {
+    user: User,
     number: number,
-    onOpenInterface: (item: Item) => void
+    onOpenInterface: (user: User) => void
 }
 
-type Item = {
-    user_name: string,
-    user_email: string,
-    user_address: string,
-    user_auth: number,
-    user_status: string,
-    create_at: string
-}
-const UserTableRow: FC<UserProps> = ({ item, onOpenInterface, number }) => {
-    const { user_name, user_email, user_address, user_auth, user_status, create_at } =
-        item;
+
+const UserTableRow: FC<TableRowProps> = ({ user, number, onOpenInterface }) => {
+
+    const { user_name, user_email, user_address, user_auth, user_status, create_at } = user;
 
     return (
         <tr className="font-content text-center">
@@ -33,7 +27,7 @@ const UserTableRow: FC<UserProps> = ({ item, onOpenInterface, number }) => {
                     type="button"
                     size="sm"
                     className="text-white border border-2 btn-gray m-1"
-                    onClick={() => onOpenInterface(item)}
+                    onClick={() => onOpenInterface(user)}
                 >
                     Modify
                 </Button>
