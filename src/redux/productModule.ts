@@ -20,7 +20,7 @@ export const productTypes = {
   PRODUCT_ANY_FAILURE: 'PRODUCT_ANY_FAILURE',
 };
 
-export type ProductSelectState = {
+type ProductSelectState = {
   items: Map<string, Map<number, { totalPage: number; items: Product[] }>>;
   detail: Map<string, Product>;
   search: Map<number, { totalPage: number; items: Product[] }>;

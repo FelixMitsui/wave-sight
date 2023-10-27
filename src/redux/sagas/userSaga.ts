@@ -26,6 +26,8 @@ function* watchLogin(action) {
 
   try {
 
+    yield put({ type: userTypes.LOADING });
+
     const userInfo = action.payload;
 
     const res = yield call(login, userInfo);
@@ -37,6 +39,8 @@ function* watchLogin(action) {
     localStorage.setItem('loginToken', 'true');
 
     yield put({ type: userTypes.SET_MESSAGE_SEND, payload: `Login success.(${status})` });
+
+    yield put({ type: userTypes.FINISH });
 
   } catch (err) {
 
@@ -112,7 +116,7 @@ function* watchCheckUserAuth() {
   try {
 
     const res = yield call(checkUserAuth);
-    const { data, status } = res;
+    const { data } = res;
 
     yield put({ type: userTypes.CHECK_USER_AUTH_SUCCESS, payload: data });
 
@@ -214,6 +218,8 @@ function* watchUpdateItemQuantity(action) {
 
   try {
 
+    yield put({ type: userTypes.LOADING });
+
     const quantity = action.payload;
     const { sid, product_quantity } = quantity;
 
@@ -237,7 +243,7 @@ function* watchUpdateItemQuantity(action) {
     });
 
     yield delay(1000);
-    yield put({ type: userTypes.LOADING });
+    yield put({ type: userTypes.FINISH });
 
     console.log(`${data}.(${status})`);
 

@@ -29,7 +29,7 @@ export const manageTypes = {
   CLEAN_MESSAGE: 'CLEAN_MESSAGE',
 };
 
-export type ManageSelectState = {
+type ManageSelectState = {
   products: Map<number, Product[]>;
   productDetail: Map<number, Product>;
   userDetail: Map<number, User>;

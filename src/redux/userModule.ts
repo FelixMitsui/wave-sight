@@ -38,7 +38,7 @@ export const userTypes = {
 };
 
 
-export type UserSelectState = {
+type UserSelectState = {
   info: User | {};
   isLogin: boolean | undefined;
   isLoading: boolean;
