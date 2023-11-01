@@ -8,6 +8,7 @@ import ProductList from '../../../components/product/ProductList';
 import PageBar from '../../../components/common/PageBar';
 import { RootState } from 'redux/store';
 import { Product } from 'types/Product';
+
 const Search = () => {
 
     const dispatch = useDispatch();
@@ -22,11 +23,11 @@ const Search = () => {
 
     useEffect(() => {
 
-        if (!products) {
-            dispatch({ type: productTypes.SEARCH_PRODUCTS_REQUEST, payload: { queryParams } });
-        }
 
-    }, [products]);
+        dispatch({ type: productTypes.SEARCH_PRODUCTS_REQUEST, payload: { queryParams } });
+
+
+    }, [location]);
 
     return (
         <section className="pt-3">

@@ -56,7 +56,7 @@ const PasswordForm = ({ user_id, user_auth }) => {
 
             event.preventDefault();
 
-            if (user_auth | 0) {
+            if (user_auth & 0) {
                 return;
             }
 
@@ -71,7 +71,7 @@ const PasswordForm = ({ user_id, user_auth }) => {
             className="d-flex flex-column"
         >
             <FormGroup className="mb-3" controlId="formBasicPassword">
-                <FormLabel className="font-content fs-5">Old Password</FormLabel>
+                <FormLabel className="font-content">Old Password</FormLabel>
                 <FormControl
                     type="password"
                     placeholder="input old password"
@@ -85,7 +85,7 @@ const PasswordForm = ({ user_id, user_auth }) => {
                 </Form.Text>
             </FormGroup>
             <FormGroup className="mb-3" controlId="formBasicPassword">
-                <FormLabel className="font-content fs-5">New Password</FormLabel>
+                <FormLabel className="font-content">New Password</FormLabel>
                 <FormControl
                     type="password"
                     placeholder="input new password"
@@ -99,7 +99,7 @@ const PasswordForm = ({ user_id, user_auth }) => {
                 </Form.Text>
             </FormGroup>
             <FormGroup className="mb-3" controlId="formBasicPassword">
-                <FormLabel className="font-content fs-5">Password Confirm</FormLabel>
+                <FormLabel className="font-content">Password Confirm</FormLabel>
                 <FormControl
                     type="password"
                     value={confirmPassword}
@@ -119,7 +119,7 @@ const PasswordForm = ({ user_id, user_auth }) => {
                         !newPasswordIsConfirm ||
                         !confirmPasswordIsConfirm)
                 }
-                className="fs-5 align-self-end"
+                className="align-self-end"
                 variant="outline-light bg-deep-gray text-white font-btn fw-bold"
             >
                 Confirm Change

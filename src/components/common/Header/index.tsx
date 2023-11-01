@@ -53,7 +53,7 @@ const Header = () => {
             <Navbar
                 collapseOnSelect
                 expanded={isToggle}
-                className="px-3 bg-light-gray border d-flex justify-content-center position-fixed start-0 top-0 end-0 index-4"
+                className="px-3 bg-light-gray border d-flex justify-content-center position-fixed start-0 top-0 end-0 index-5"
                 expand="lg"
             >
                 <div
@@ -75,8 +75,8 @@ const Header = () => {
                 </Navbar.Collapse>
                 <Nav className="my-2 mb-2 flex-row ms-auto">
                     {!matched &&
-                        <NavButton btnStyle="btn-light-gray " textStyle="text-black" path={`${isLogin ? "user/cart" : ""}`} onClick={handleCheckLogin}>
-                            <i className="bx bxs-cart fs-3" />
+                        <NavButton btnStyle="btn-light-gray" textStyle="text-black" path={`${isLogin ? "user/cart" : ""}`} onClick={handleCheckLogin}>
+                            <i className="bx bxs-cart" />
                         </NavButton>
                     }
                     <Person
@@ -93,11 +93,10 @@ const Header = () => {
                 {productMessage && <MessageToast message={productMessage} />}
             </Navbar >
             <div
-                className="bottom-0 end-0 index-1 position-fixed start-0 top-0"
+                className="bottom-0 end-0 index-5 position-fixed start-0 top-0"
                 onClick={handleToggleDisplay}
                 style={{ display: `${isToggle ? 'block' : 'none'}` }}
             />
-
         </header>
     );
 };

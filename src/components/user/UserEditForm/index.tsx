@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 
 
 const UserEditForm = ({ user, setUserValue, onUpdateUser, onCloseInterface }) => {
+
     const {
         _id: user_id,
         user_name,
@@ -62,7 +63,7 @@ const UserEditForm = ({ user, setUserValue, onUpdateUser, onCloseInterface }) =>
                             key={`inline-${type}`}
                             label={type}
                             value={type}
-                            checked={user_auth === type ? true : false}
+                            checked={user_auth == type ? true : false}
                             name="user_auth"
                             type="radio"
                             className="font-content ms-2"

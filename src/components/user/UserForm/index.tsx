@@ -8,7 +8,6 @@ import { Formik } from 'formik';
 import { userTypes } from '../../../redux/userModule';
 import { valuesSchema } from "./constants";
 
-
 const UserForm = ({ user }) => {
 
     const dispatch = useDispatch();
@@ -48,13 +47,13 @@ const UserForm = ({ user }) => {
                     <Form onSubmit={handleSubmit} className="m-2 px-5 d-flex flex-column">
                         <fieldset disabled>
                             <Form.Group className="my-3 mb-3 px-2">
-                                <Form.Label className="font-content fs-5 fw-bold me-1 mt-1  text-center">
+                                <Form.Label className="me-1 mt-1 ont-content fw-bold text-center">
                                     Name
                                 </Form.Label>
                                 <Form.Control id="disabledTextInput" placeholder={user_name} />
                             </Form.Group>
                             <Form.Group className="my-3 mb-3 px-2">
-                                <Form.Label className="font-content fs-5 fw-bold me-1 mt-1 text-center">
+                                <Form.Label className="me-1 mt-1 font-content fw-bold text-center">
                                     Email
                                 </Form.Label>
                                 <Form.Control id="disabledTextInput" placeholder={user_email} />
@@ -72,7 +71,7 @@ const UserForm = ({ user }) => {
                             <Button
                                 type="submit"
                                 size="sm"
-                                className="align-self-end bg-beige border border-black font-btn fs-5 fw-bold me-2 text-black"
+                                className="align-self-end bg-beige border border-black font-btn fw-bold me-2 text-black"
                             >
                                 Submit
                             </Button>
@@ -84,7 +83,7 @@ const UserForm = ({ user }) => {
                 <Button
                     type="submit"
                     size="sm"
-                    className="mt-2 btn-deep-gray font-btn fs-5 fw-bold me-2 text-white"
+                    className="mt-2 btn-deep-gray font-btn fw-bold me-2 text-white"
                     onClick={handleEditUser}
                 >
                     {isEdit ? 'Edit' : 'Cancel'}
@@ -92,8 +91,8 @@ const UserForm = ({ user }) => {
                 <PasswordFormWithModal
                     title="Change Password"
                     btnName="Change Password"
-                    btnSize={5}
                     user_auth={user_auth}
+                    user_id={user_id}
                 />
             </div>
         </Container>

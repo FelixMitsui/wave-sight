@@ -68,9 +68,8 @@ const ShoppingForm = ({ onFormSubmit, initialValue }) => {
                     <div className="d-flex justify-content-end">
                         <Button
                             type="submit"
-                            size="sm"
                             variant="none"
-                            className="bg-beige border border-black font-btn fs-5 fw-bold mt-2 text-black"
+                            className="bg-beige border border-black font-btn fw-bold mt-2 text-black"
                         >
                             Add to cart
                         </Button>

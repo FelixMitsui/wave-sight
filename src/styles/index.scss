@@ -9,6 +9,10 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: clamp(1rem, 1.3vw, 1.8rem);
+}
+
 .text-decoration:hover {
   text-decoration: underline;
   text-decoration-color: gray;
@@ -36,7 +40,7 @@
   }
 }
 
-@include z-index(1, 4);
+@include z-index(1, 5);
 
 //about font
 $font-families: (
@@ -59,8 +63,4 @@ $family in $font-families {
   .font-#{$name} {
     font-family: $family;
   }
-}
-
-html {
-  font-size: clamp(1rem, 1.2vw, 2rem)
 }

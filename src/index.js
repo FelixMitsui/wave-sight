@@ -5,10 +5,11 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
-import './styles/index.scss';
-import LiftingArrow from './components/common/LiftingArrow';
 import RouteGroup from './router/RouteGroup';
 import Suspender from './components/common/Suspender';
+import ChatWindow from './components/common/ChatWindow';
+import AsideGroup from './components/common/AsideGroup';
+import './styles/index.scss';
 
 const rootElement = document.getElementById("root");
 const root = ReactDOM.createRoot(rootElement);
@@ -18,7 +19,8 @@ const App = () => {
     return (
         <BrowserRouter basename='/'>
             <Header />
-            <LiftingArrow />
+            <AsideGroup />
+            <ChatWindow />
             <Suspender>
                 <RouteGroup />
             </Suspender>

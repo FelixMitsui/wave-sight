@@ -6,7 +6,7 @@ import NoticeImg from "../../common/NoticeImg";
 const OrderTable = ({ orderItems }) => {
 
     return (
-        <>
+        <div className="my-2 d-flex flex-column position-relative">
             {!orderItems?.length &&
                 <NoticeImg img="empty-order.png" text=" There are currently no order record." />
             }
@@ -74,7 +74,7 @@ const OrderTable = ({ orderItems }) => {
                     </Accordion.Item>
                 </Accordion>
             ))}
-        </>
+        </div>
     )
 }
 

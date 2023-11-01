@@ -5,7 +5,7 @@ const withModal = OutSideComponent => {
 
     return props => {
 
-        const { title, btnName, btnSize, className, children, ...rest } = props;
+        const { title, btnName, className, children, ...rest } = props;
 
         const [isDisplay, setIsDisplay] = useState(false);
 
@@ -17,14 +17,14 @@ const withModal = OutSideComponent => {
             <>
                 <Modal
                     show={isDisplay}
-                    onHide={handleDisplay}
-                    size="lg"
+                    onHide={() => handleDisplay()}
+                    dialogClassName="modal-50w"
                     aria-labelledby="contained-modal-title-vcenter"
                     contentClassName="bg-light-gray"
                     centered
                 >
                     <Modal.Header closeButton>
-                        <Modal.Title className="font-title fs-2" id="contained-modal-title-vcenter">
+                        <Modal.Title className="font-title" id="contained-modal-title-vcenter">
                             {title}
                         </Modal.Title>
                     </Modal.Header>
@@ -36,10 +36,10 @@ const withModal = OutSideComponent => {
                 </Modal>
                 <Button
                     className={`${className} mt-2 border border-2 border-white index-2 btn-deep-gray text-white d-flex align-items-center`}
-                    onClick={handleDisplay}
+                    onClick={() => handleDisplay()}
                 >
                     {children}
-                    <span className={`fs-${btnSize || 6} font-btn fw-bold text-white`}>
+                    <span className={`font-btn fw-bold text-white`}>
                         {btnName}
                     </span>
                 </Button>

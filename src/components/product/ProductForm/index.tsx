@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { Formik, FieldArray } from 'formik';
 import ImgList from '../../common/ImgList';
@@ -19,6 +20,8 @@ import { valuesSchema } from './constants';
 const ProductForm = ({ product }) => {
 
     const setFieldValueRef = useRef(null);
+
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -92,16 +95,18 @@ const ProductForm = ({ product }) => {
 
         if (product_id) {
             dispatch({
-                type: manageTypes.CREATE_PRODUCT_REQUEST,
-                payload: productInfo
-            });
-
-        } else {
-            dispatch({
                 type: manageTypes.UPDATE_PRODUCT_REQUEST,
                 payload: { product_id, productInfo },
             });
+        } else {
+
+            dispatch({
+                type: manageTypes.CREATE_PRODUCT_REQUEST,
+                payload: productInfo
+            });
         }
+
+        navigate('/manage/products')
     };
 
     return (

@@ -80,7 +80,7 @@ const RegisterForm = () => {
             className="d-flex flex-column"
         >
             <FormGroup className="mb-3" controlId="formBasicEmail">
-                <FormLabel className="font-content fs-5">User Name</FormLabel>
+                <FormLabel className="font-content">User Name</FormLabel>
                 <FormControl
                     type="text"
                     placeholder="Enter Username"
@@ -93,7 +93,7 @@ const RegisterForm = () => {
                 </Form.Text>
             </FormGroup>
             <FormGroup className="mb-3" controlId="formBasicPassword">
-                <FormLabel className="font-content fs-5">Password</FormLabel>
+                <FormLabel className="font-content">Password</FormLabel>
                 <FormControl
                     type="password"
                     placeholder="Enter Password"
@@ -111,7 +111,7 @@ const RegisterForm = () => {
                 </Form.Text>
             </FormGroup>
             <FormGroup className="mb-3" controlId="formBasicPassword">
-                <FormLabel className="font-content fs-5">Confirm Password</FormLabel>
+                <FormLabel className="font-content">Confirm Password</FormLabel>
                 <FormControl
                     type="password"
                     value={confirmPassword}
@@ -125,7 +125,7 @@ const RegisterForm = () => {
             </FormGroup>
 
             <FormGroup className="mb-3" controlId="formBasicEmail">
-                <FormLabel className="font-content fs-5">Email address</FormLabel>
+                <FormLabel className="font-content">Email address</FormLabel>
                 <FormControl
                     type="email"
                     placeholder="Enter Email"
@@ -139,7 +139,7 @@ const RegisterForm = () => {
             </FormGroup>
             <Button
                 type="submit"
-                className="fs-5 align-self-end"
+                className="align-self-end"
                 variant=" outline-light bg-deep-gray text-white font-btn fw-bold"
                 disabled={
                     !nameIsConfirm ||

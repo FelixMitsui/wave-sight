@@ -29,11 +29,11 @@ const NavButton: FC<ButtonProps> = ({ name, path, children, onClick, btnStyle, t
 
     return (
         <Button
-            className={`m-1 border border-2 border-white index-2 d-flex  ${textStyle} ${btnStyle}`}
+            className={`m-1  border border-2 border-white index-2 d-flex align-items-center ${textStyle} ${btnStyle}`}
             onClick={handleClick}
         >
             {children}
-            <span className="font-btn fs-6 fw-bold">{name}</span>
+            <span className="font-btn fw-bold">{name}</span>
         </Button>
     )
 }

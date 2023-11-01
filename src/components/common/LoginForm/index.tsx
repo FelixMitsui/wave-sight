@@ -53,7 +53,7 @@ const LoginForm = () => {
             className="d-flex flex-column"
         >
             <FormGroup className="mb-3" controlId="formBasicEmail">
-                <FormLabel className="font-content fs-5">Email address</FormLabel>
+                <FormLabel className="font-content">Email address</FormLabel>
                 <FormControl
                     type="email"
                     placeholder="Enter email"
@@ -66,7 +66,7 @@ const LoginForm = () => {
                 </Form.Text>
             </FormGroup>
             <FormGroup className="mb-3" controlId="formBasicPassword">
-                <FormLabel className="font-content fs-5">Password</FormLabel>
+                <FormLabel className="font-content">Password</FormLabel>
                 <FormControl
                     type="password"
                     placeholder="Password"
@@ -81,7 +81,7 @@ const LoginForm = () => {
             <Button
                 type="submit"
                 disabled={!emailIsConfirm || !passwordIsConfirm}
-                className="align-self-end fs-5"
+                className="align-self-end"
                 variant="outline-light bg-deep-gray text-white font-btn fw-bold"
             >
                 Login

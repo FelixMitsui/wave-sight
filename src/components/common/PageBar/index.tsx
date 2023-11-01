@@ -9,7 +9,7 @@ type PageProps = {
     sortText?: string;
 }
 
-const PageBar: FC<PageProps> = ({ currentIndex, totalPage, queryText = "", sortText }) => {
+const PageBar: FC<PageProps> = ({ currentIndex, totalPage, queryText = "", sortText = "" }) => {
 
     const navigate = useNavigate();
 

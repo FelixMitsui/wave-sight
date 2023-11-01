@@ -10,9 +10,9 @@ const NavDrop = ({ linkGroup }) => {
             const { category, path, subcategories } = link;
 
             return (
-                <Dropdown key={index} className="me-2 mb-2 px-1 d-flex flex-column align-items-end border-start  border-3">
-                    <Nav.Item className="d-flex">
-                        <Nav.Link className="py-0 px-0 font-nav fs-5 fw-bold" as={NavLink} to={path}>
+                <Dropdown key={index} className="m-1 px-1 d-flex flex-column align-items-end border-start  border-3">
+                    <Nav.Item className="d-flex align-items-center">
+                        <Nav.Link className="py-0 px-0 font-nav fw-bold" as={NavLink} to={path}>
                             {category}
                         </Nav.Link>
                         {subcategories && <Dropdown.Toggle size="sm" className="ms-2 btn-deep-gray" id="dropdown-split-basic" />}
@@ -25,7 +25,7 @@ const NavDrop = ({ linkGroup }) => {
                                 return subcategories ? (
                                     <Dropdown key={subIndex} className="m-3 d-flex flex-column align-items-end ">
                                         <Nav.Item className="d-flex ">
-                                            <Nav.Link className="py-0 px-0 font-nav fs-5 fw-bold" as={NavLink} to={path}>
+                                            <Nav.Link className="py-0 px-0 font-nav fw-bold" as={NavLink} to={path}>
                                                 {category}
                                             </Nav.Link>
                                             <Dropdown.Toggle size="sm" className="ms-2 btn-deep-gray" id="dropdown-split-basic" />
@@ -36,7 +36,7 @@ const NavDrop = ({ linkGroup }) => {
 
                                                 return (
                                                     <Dropdown.Item key={subSubIndex} >
-                                                        <Nav.Link className="border border-0 border-black border-bottom  font-nav fs-5 fw-bold text-center" as={NavLink} to={path}>
+                                                        <Nav.Link className="border border-0 border-black border-bottom  font-nav fw-bold text-center" as={NavLink} to={path}>
                                                             {category}
                                                         </Nav.Link>
                                                     </Dropdown.Item>
@@ -46,7 +46,7 @@ const NavDrop = ({ linkGroup }) => {
                                     </Dropdown>
                                 ) : (
                                     <Dropdown.Item key={subIndex}>
-                                        <Nav.Link className="border border-0 border-black border-bottom  font-nav fs-5 fw-bold text-center" as={NavLink} to={path}>
+                                        <Nav.Link className="border border-0 border-black border-bottom  font-nav fw-bold text-center" as={NavLink} to={path}>
                                             {category}
                                         </Nav.Link>
                                     </Dropdown.Item>

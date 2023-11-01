@@ -4,6 +4,7 @@ import { User } from '../types/User';
 export const manageTypes = {
   //REQUEST
   MANAGE_GET_PRODUCTS_REQUEST: 'MANAGE_GET_PRODUCTS_REQUEST',
+  MANAGE_GET_DETAIL_PRODUCT_REQUEST: 'MANAGE_GET_DETAIL_PRODUCT_REQUEST',
   CREATE_PRODUCT_REQUEST: 'CREATE_PRODUCT_REQUEST',
   UPDATE_PRODUCT_REQUEST: 'UPDATE_PRODUCT_REQUEST',
   UPDATE_USER_REQUEST: 'UPDATE_USER_REQUEST',
@@ -11,6 +12,7 @@ export const manageTypes = {
   DELETE_PRODUCT_IMG_REQUEST: 'DELETE_PRODUCT_IMG_REQUEST',
   //SUCCESS
   MANAGE_GET_PRODUCTS_SUCCESS: 'MANAGE_GET_PRODUCTS_SUCCESS',
+  MANAGE_GET_DETAIL_PRODUCT_SUCCESS: 'MANAGE_GET_DETAIL_PRODUCT_SUCCESS',
   CREATE_PRODUCT_SUCCESS: 'CREATE_PRODUCT_SUCCESS',
   UPDATE_PRODUCT_SUCCESS: 'UPDATE_PRODUCT_SUCCESS',
   UPDATE_USER_SUCCESS: 'UPDATE_USER_SUCCESS',
@@ -55,24 +57,26 @@ export default function manageReducers(state = initialState, action) {
 
       return { ...state, products: new Map([...state.products, ...action.payload]) };
 
+    case manageTypes.MANAGE_GET_DETAIL_PRODUCT_SUCCESS:
+
+      return { ...state, productDetail: new Map([...state.productDetail, ...action.payload]) };
+
     case manageTypes.CREATE_PRODUCT_SUCCESS:
 
-      return { ...state, isLoading: false, productDetail: new Map([...state.productDetail, ...action.payload]) };
+      return { ...state, productDetail: new Map([...state.productDetail, ...action.payload]) };
 
     case manageTypes.UPDATE_PRODUCT_SUCCESS:
 
-      return { ...state, isLoading: false, productDetail: new Map([...state.productDetail, ...action.payload]) };
+      return { ...state, productDetail: new Map([...state.productDetail, ...action.payload]) };
 
     case manageTypes.UPDATE_USER_SUCCESS:
-      return { ...state, ...action.payload };
+      return { ...state, users: action.payload };
 
     case manageTypes.GET_USERS_SUCCESS:
       return { ...state, users: action.payload };
 
     case manageTypes.DELETE_PRODUCT_IMG_SUCCESS:
       return { ...state };
-
-
 
     case manageTypes.LOADING:
 

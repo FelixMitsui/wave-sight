@@ -9,6 +9,7 @@
 資料請求使用Axios.
 路由管理使用React-router-dom,並將路由列表導入useRoutes產生路由組件.
 表單處理使用formik及自定義hooks.
+客服連線使用socket.io,提供用戶與客服之間的訊息傳送。
 
 ## 前端路由
 

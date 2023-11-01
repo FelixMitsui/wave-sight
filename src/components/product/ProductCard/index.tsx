@@ -29,18 +29,21 @@ const ProductCard = ({
                     {product_name}
                 </Card.Title>
                 {product_discount < 1 ? (
-                    <div className="d-flex  align-self-end flex-grow-1 flex-wrap">
-                        <Card.Text className="font-content mb-0 mx-1 text-decoration-line-through">
+                    <div className="d-flex justify-content-end flex-grow-1 flex-wrap">
+                        <Card.Text className="align-self-end font-content mb-0 mx-1 text-decoration-line-through">
                             {product_price}NT$
                         </Card.Text>
-                        <Card.Text className="font-content fs-6 text-red">
+                        <Card.Text className="align-self-end font-content text-red">
                             {Math.floor(product_price * product_discount)}NT$
                         </Card.Text>
                     </div>
                 ) : (
-                    <Card.Text className="d-flex font-content align-self-end flex-grow-1">
-                        {product_price}NT$
-                    </Card.Text>
+                    <div className="d-flex justify-content-end flex-grow-1 flex-wrap">
+                        <Card.Text className="align-self-end font-content">
+                            {product_price}NT$
+                        </Card.Text>
+                    </div>
+
                 )}
             </Card.Body>
         </Card>

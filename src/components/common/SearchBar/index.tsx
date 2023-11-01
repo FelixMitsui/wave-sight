@@ -42,11 +42,11 @@ export default function SearchBar() {
             <Button
                 variant="none"
                 size="sm"
-                className="me-1 bg-deep-gray end-0 position-absolute text-white top-5"
+                className="me-1 bg-deep-gray end-0 position-absolute text-white top-10"
                 onClick={handleSearch}
                 onKeyDown={handleSearchKeyDown}
             >
-                <i className="bx bx-search-alt-2 fs-5" />
+                <i className="bx bx-search-alt-2" />
             </Button>
         </div>
     )

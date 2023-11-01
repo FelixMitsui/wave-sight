@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
 import ShoppingForm from '../../user/ShoppingForm';
 import { userTypes } from '../../../redux/userModule';
-import { Col, Card, Row, Image } from "react-bootstrap";
+import { Col, Card, Row, Image, Figure } from "react-bootstrap";
 
 const ProductDetail = ({ product, user_id }) => {
 
@@ -95,8 +95,19 @@ const ProductDetail = ({ product, user_id }) => {
             </Col>
             <hr />
             <Col className="p-2">
-                <h2 className="font-title fs-2 fw-bold text-center">Detail Content</h2>
-                <p className="font-content fs-5 mt-2 px-5">{product_content}</p>
+                <h2 className="font-title  fw-bold text-center">Detail Content</h2>
+                <p className="font-content mt-2 px-5">{product_content}</p>
+                <Figure className="p-1 px-5">
+                    <img
+                        className="m-1 w-100"
+                        src={require(`${process.env.ASSETS_PATH}mens_size.png`).default}
+
+                    />
+                    <img
+                        className="m-1 w-100"
+                        src={require(`${process.env.ASSETS_PATH}women_size.png`).default}
+                    />
+                </Figure>
             </Col>
         </Row>
     )

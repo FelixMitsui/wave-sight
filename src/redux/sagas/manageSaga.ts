@@ -2,6 +2,7 @@ import { put, takeLatest, takeLeading, call, select, delay } from 'redux-saga/ef
 import {
     createProduct,
     getProducts,
+    getDetailProduct,
     updateProduct,
     updateUser,
     getUsers,
@@ -45,16 +46,14 @@ function* watchUpdateProduct(action) {
 
         yield put({ type: manageTypes.LOADING });
 
-        yield put({
-            type: manageTypes.SET_LOADING_SUCCESS,
-            payload: { isLoading: true }
-        });
 
         const productValue = action.payload;
         const { product_id } = productValue;
 
         const res = yield call(updateProduct, productValue);
         const { data, status } = res;
+
+        console.log(data)
 
         const updateDetailMap = new Map();
 
@@ -89,8 +88,11 @@ function* watchUpdateUser(action) {
         const { data, status } = res;
 
         const { users } = yield select(state => state.manage);
+
         const cloneUsers = cloneDeep(users);
+
         const userIndex = cloneUsers.findIndex(user => user._id === user_id);
+
         if (userIndex !== -1) {
             cloneUsers[userIndex] = { ...cloneUsers[userIndex], ...userInfo };
         }
@@ -100,6 +102,7 @@ function* watchUpdateUser(action) {
         yield put({ type: manageTypes.FINISH });
 
         yield put({ type: userTypes.SET_MESSAGE_SEND, payload: `${data}.(${status})` });
+
     } catch (err) {
         const { data, status } = err.response;
         yield put({ type: userTypes.SET_MESSAGE_SEND, payload: `${data}.(${status})` });
@@ -139,6 +142,34 @@ function* watchManageGetProducts(action) {
     }
 };
 
+function* watchManageGetDetailProduct(action) {
+
+    try {
+
+        const productId = action.payload;
+
+        yield put({ type: manageTypes.LOADING });
+
+        const res = yield call(getDetailProduct, action.payload);
+
+        const { data } = res;
+
+        const productMap = new Map();
+
+        productMap.set(productId, data);
+
+        yield put({
+            type: manageTypes.MANAGE_GET_DETAIL_PRODUCT_SUCCESS,
+            payload: productMap
+        });
+
+        yield put({ type: manageTypes.FINISH });
+
+    } catch (err) {
+        const { data, status } = err.response;
+        console.log(`${data}.(${status})`);
+    }
+};
 
 function* watchGetUsers() {
 
@@ -193,6 +224,7 @@ export default function* manageSaga() {
     yield takeLatest(manageTypes.UPDATE_PRODUCT_REQUEST, watchUpdateProduct);
     yield takeLatest(manageTypes.UPDATE_USER_REQUEST, watchUpdateUser);
     yield takeLatest(manageTypes.MANAGE_GET_PRODUCTS_REQUEST, watchManageGetProducts);
+    yield takeLatest(manageTypes.MANAGE_GET_DETAIL_PRODUCT_REQUEST, watchManageGetDetailProduct);
     yield takeLatest(manageTypes.GET_USERS_REQUEST, watchGetUsers);
     yield takeLatest(manageTypes.DELETE_PRODUCT_IMG_REQUEST, watchDeleteProductImg);
     yield takeLeading(manageTypes.SET_MESSAGE_SEND, watchSetMessage);

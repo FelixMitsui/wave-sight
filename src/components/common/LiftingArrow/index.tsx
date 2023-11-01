@@ -30,7 +30,7 @@ export default function LiftingArrow() {
     };
     return (
         <Button
-            className="m-2 p-2 d-flex rounded-circle position-fixed bottom-0 end-0 index-3 opacity-50 btn-deep-gray text-black"
+            className="m-2 p-2 d-flex rounded-circle position-fixed bottom-0 end-0 index-5 opacity-50 btn-deep-gray text-black"
             onClick={() => handleLifting()}
         >
             {scrollPosition === 0 ? (

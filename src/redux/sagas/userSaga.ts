@@ -4,7 +4,7 @@ import {
   takeLeading,
   delay,
   call,
-  select,
+  select
 } from 'redux-saga/effects';
 import {
   login,
@@ -21,6 +21,8 @@ import {
 } from '../../services/axiosApi';
 import { userTypes } from '../userModule';
 import cloneDeep from 'lodash/cloneDeep';
+import { servicerOnline, servicerOffline } from '../../socketio/client';
+
 
 function* watchLogin(action) {
 
@@ -36,6 +38,11 @@ function* watchLogin(action) {
 
     yield put({ type: userTypes.LOGIN_SUCCESS, payload: data });
 
+    if (data.user_auth & 1) {
+
+      servicerOnline({ servicerId: data._id, servicerName: data.user_name });
+    }
+
     localStorage.setItem('loginToken', 'true');
 
     yield put({ type: userTypes.SET_MESSAGE_SEND, payload: `Login success.(${status})` });
@@ -45,7 +52,11 @@ function* watchLogin(action) {
   } catch (err) {
 
     const { data, status } = err.response;
+
+    yield put({ type: userTypes.FINISH });
+
     yield put({ type: userTypes.SET_MESSAGE_SEND, payload: `${data}.(${status})` });
+
 
   }
 }
@@ -58,9 +69,16 @@ function* watchLogout() {
 
     const res = yield call(logout);
 
+    const { _id } = yield select((state) => state.user.info);
+
+    sessionStorage.clear();
+
+    servicerOffline(_id);
+
     yield put({ type: userTypes.LOGOUT_SUCCESS });
 
-    yield put({ type: userTypes.SET_MESSAGE_SEND, payload: 'Logged out.' })
+    yield put({ type: userTypes.SET_MESSAGE_SEND, payload: 'Logged out.' });
+
   } catch (err) {
     console.error(err);
   }
@@ -92,7 +110,7 @@ function* watchUpdatePassWord(action) {
   try {
 
     const userInfo = action.payload;
-
+    console.log(userInfo)
     const res = yield call(updatePassWord, userInfo);
 
     const { data, status } = res;
@@ -127,6 +145,7 @@ function* watchCheckUserAuth() {
     if (status === 401) {
 
       localStorage.clear();
+      sessionStorage.clear();
 
       yield put({
         type: userTypes.CHECK_USER_AUTH_FAILURE,
@@ -242,7 +261,7 @@ function* watchUpdateItemQuantity(action) {
       payload: cloneInfo
     });
 
-    yield delay(1000);
+    yield delay(500);
     yield put({ type: userTypes.FINISH });
 
     console.log(`${data}.(${status})`);
