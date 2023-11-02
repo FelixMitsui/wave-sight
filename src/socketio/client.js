@@ -3,7 +3,14 @@ import store from "../redux/store";
 import { chatTypes } from "../redux/chatModule";
 import { triggerSessionStorageChange } from "../utils/tools/customEvent";
 
-const socket = io('http://localhost:3000');
+
+export let socket = null;
+
+export function initSocketConnection() {
+
+    socket = io(`${process.env.NODE_ENV === 'production' ? 'https://wave-sight-server.vercel.app' : 'http://localhost:3000'}`);
+
+}
 
 socket.on('updateServicers', (servicers) => {
 

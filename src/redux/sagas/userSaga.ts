@@ -21,7 +21,7 @@ import {
 } from '../../services/axiosApi';
 import { userTypes } from '../userModule';
 import cloneDeep from 'lodash/cloneDeep';
-import { servicerOnline, servicerOffline } from '../../socketio/client';
+import { socket, initSocketConnection, servicerOnline, servicerOffline } from '../../socketio/client';
 
 
 function* watchLogin(action) {
@@ -46,6 +46,8 @@ function* watchLogin(action) {
     localStorage.setItem('loginToken', 'true');
 
     yield put({ type: userTypes.SET_MESSAGE_SEND, payload: `Login success.(${status})` });
+
+    initSocketConnection();
 
     yield put({ type: userTypes.FINISH });
 
@@ -74,6 +76,7 @@ function* watchLogout() {
     sessionStorage.clear();
 
     servicerOffline(_id);
+    socket.disconnect();
 
     yield put({ type: userTypes.LOGOUT_SUCCESS });
 
@@ -98,6 +101,8 @@ function* watchRegister(action) {
     localStorage.setItem('loginToken', 'true');
 
     yield put({ type: userTypes.SET_MESSAGE_SEND, payload: `Register Success.(${status})` });
+
+    initSocketConnection();
 
   } catch (err) {
     const { status } = err.response;
@@ -138,6 +143,8 @@ function* watchCheckUserAuth() {
 
     yield put({ type: userTypes.CHECK_USER_AUTH_SUCCESS, payload: data });
 
+    initSocketConnection();
+
   } catch (err) {
 
     const { data, status } = err.response;
@@ -152,6 +159,8 @@ function* watchCheckUserAuth() {
         payload: { info: {}, isLogin: false },
       });
     }
+
+    socket.disconnect();
 
     yield put({ type: userTypes.SET_MESSAGE_SEND, payload: `${data}.(${status})` })
   }

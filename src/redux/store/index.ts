@@ -1,4 +1,3 @@
-
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
@@ -17,9 +16,16 @@ const rootReducer = combineReducers({
     user: userReducers,
     chat: chatReducers
 });
+
 export type RootState = ReturnType<typeof rootReducer>;
 
-const store = createStore(rootReducer, applyMiddleware(sagaMiddleware, logger));
+const middleware = [sagaMiddleware];
+
+if (process.env.NODE_ENV !== 'production') {
+    middleware.push(logger);
+}
+
+const store = createStore(rootReducer, applyMiddleware(...middleware));
 sagaMiddleware.run(rootSaga);
 
 export default store;
