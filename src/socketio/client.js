@@ -3,17 +3,12 @@ import store from "../redux/store";
 import { chatTypes } from "../redux/chatModule";
 import { triggerSessionStorageChange } from "../utils/tools/customEvent";
 
-
 export let socket = null;
 
-export function initSocketConnection() {
-
-    socket = io(`${process.env.NODE_ENV === 'production' ? 'https://wave-sight-server.vercel.app' : 'http://localhost:3000'}`);
-
-}
+socket = io('http://localhost:3000');
 
 socket.on('updateServicers', (servicers) => {
-
+    console.log(servicers)
     sessionStorage.setItem('servicers', JSON.stringify(servicers));
 
     triggerSessionStorageChange();
@@ -23,7 +18,8 @@ socket.on('updateServicers', (servicers) => {
 })
 
 socket.on('receiveServicers', (servicers) => {
-
+    console.log('receiveServicers')
+    console.log(servicers)
     sessionStorage.setItem('servicers', JSON.stringify(servicers));
 
     triggerSessionStorageChange();
@@ -53,6 +49,8 @@ socket.on('message', (messages) => {
     store.dispatch({ type: chatTypes.RECEIVE_MESSAGE, payload: messages });
 
 })
+
+
 
 //general user  
 

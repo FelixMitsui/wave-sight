@@ -13,6 +13,7 @@ type userInfo = {
 type ServiceList = {
     userInfo: userInfo;
     servicerName?: string;
+    servicerId?: string;
     status?: boolean;
     roomId?: string;
     user_name?: string;
@@ -60,7 +61,7 @@ const ServiceListGroup = () => {
             setServiceList(servicers);
         }
 
-    }, [])
+    }, [user_auth])
 
     useEffect(() => {
 
@@ -109,16 +110,16 @@ const ServiceListGroup = () => {
             {isShowListGroup && <ListGroup className="border border-deep-gray bg-light-gray">
                 <ListGroup.Item className="p-1 text-center fw-bold font-content">Service</ListGroup.Item>
                 {
-                    serviceList[0] ? serviceList?.map((item) => {
+                    serviceList?.map((item) => {
                         const color = item?.status ? 'text-green' : 'text-gray';
-
+                        console.log(item)
                         return user_auth & 1 ?
                             <SocketItem key={item.roomId} name={item.userInfo.user_name} btnName={`${isConnect ? "Disconnect" : "Connect"}`} roomId={item.roomId} onClick={() => handleConnectToSocket(item.roomId)} /> :
 
-                            <SocketItem key={item.roomId} name={item.servicerName} btnName={`${isConnect ? "Disconnect" : "Connect"}`} roomId={item.roomId} onClick={() => handleConnectToSocket(item.roomId)}>
+                            <SocketItem key={item.servicerId} name={item.servicerName} btnName={`${isConnect ? "Disconnect" : "Connect"}`} roomId={item.servicerId} onClick={() => handleConnectToSocket(item.servicerId)}>
                                 <i className={`ms-1 bx bxs-circle ${color}`}></i>
                             </SocketItem>
-                    }) : <p className="p-2 text-center">Nobody is online</p>
+                    })
                 }
             </ListGroup >}
             <Button

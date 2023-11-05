@@ -1,5 +1,4 @@
 
-
 export const chatTypes = {
     RECEIVE_MESSAGE: 'RECEIVE_MESSAGE',
     CLEAN_MESSAGE: 'CLEAN_MESSAGE',
@@ -9,7 +8,6 @@ export const chatTypes = {
 type message = {
     user_id: string;
     content: string;
-
 }
 
 type ChatSelectState = {

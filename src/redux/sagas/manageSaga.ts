@@ -53,8 +53,6 @@ function* watchUpdateProduct(action) {
         const res = yield call(updateProduct, productValue);
         const { data, status } = res;
 
-        console.log(data)
-
         const updateDetailMap = new Map();
 
         updateDetailMap.set(product_id, data);

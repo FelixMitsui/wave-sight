@@ -21,7 +21,7 @@ import {
 } from '../../services/axiosApi';
 import { userTypes } from '../userModule';
 import cloneDeep from 'lodash/cloneDeep';
-import { socket, initSocketConnection, servicerOnline, servicerOffline } from '../../socketio/client';
+import { socket, servicerOnline, servicerOffline } from '../../socketio/client';
 
 
 function* watchLogin(action) {
@@ -47,7 +47,6 @@ function* watchLogin(action) {
 
     yield put({ type: userTypes.SET_MESSAGE_SEND, payload: `Login success.(${status})` });
 
-    initSocketConnection();
 
     yield put({ type: userTypes.FINISH });
 
@@ -71,11 +70,14 @@ function* watchLogout() {
 
     const res = yield call(logout);
 
-    const { _id } = yield select((state) => state.user.info);
+    const { _id, user_auth } = yield select((state) => state.user.info);
 
     sessionStorage.clear();
 
-    servicerOffline(_id);
+    if (user_auth & 1) {
+      servicerOffline(_id);
+    }
+
     socket.disconnect();
 
     yield put({ type: userTypes.LOGOUT_SUCCESS });
@@ -102,7 +104,6 @@ function* watchRegister(action) {
 
     yield put({ type: userTypes.SET_MESSAGE_SEND, payload: `Register Success.(${status})` });
 
-    initSocketConnection();
 
   } catch (err) {
     const { status } = err.response;
@@ -140,10 +141,7 @@ function* watchCheckUserAuth() {
 
     const res = yield call(checkUserAuth);
     const { data } = res;
-
     yield put({ type: userTypes.CHECK_USER_AUTH_SUCCESS, payload: data });
-
-    initSocketConnection();
 
   } catch (err) {
 
