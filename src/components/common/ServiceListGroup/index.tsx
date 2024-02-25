@@ -17,6 +17,7 @@ type ServiceList = {
     status?: boolean;
     roomId?: string;
     user_name?: string;
+    user: s
 }
 
 const ServiceListGroup = () => {
@@ -114,9 +115,19 @@ const ServiceListGroup = () => {
                         const color = item?.status ? 'text-green' : 'text-gray';
                         console.log(item)
                         return user_auth & 1 ?
-                            <SocketItem key={item.roomId} name={item.userInfo.user_name} btnName={`${isConnect ? "Disconnect" : "Connect"}`} roomId={item.roomId} onClick={() => handleConnectToSocket(item.roomId)} /> :
+                            <SocketItem
+                                key={item.roomId}
+                                name={item.userInfo.user_name}
+                                btnName={`${isConnect ? "Disconnect" : "Connect"}`}
+                                roomId={item.roomId}
+                                onClick={() => handleConnectToSocket(item.roomId)} /> :
 
-                            <SocketItem key={item.servicerId} name={item.servicerName} btnName={`${isConnect ? "Disconnect" : "Connect"}`} roomId={item.servicerId} onClick={() => handleConnectToSocket(item.servicerId)}>
+                            <SocketItem
+                                key={item.servicerId}
+                                name={item.servicerName}
+                                btnName={`${isConnect ? "Disconnect" : "Connect"}`}
+                                roomId={item.servicerId}
+                                onClick={() => handleConnectToSocket()}>
                                 <i className={`ms-1 bx bxs-circle ${color}`}></i>
                             </SocketItem>
                     })
