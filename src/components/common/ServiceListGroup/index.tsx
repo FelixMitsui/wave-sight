@@ -17,7 +17,7 @@ type ServiceList = {
     status?: boolean;
     roomId?: string;
     user_name?: string;
-    user: s
+    user: string;
 }
 
 const ServiceListGroup = () => {
